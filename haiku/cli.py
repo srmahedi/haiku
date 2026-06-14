@@ -131,25 +131,47 @@ def _run_source(source: str) -> dict:
 
 
 def print_help():
-    print("""
-Haiku Programming Language - CLI Help
-=====================================
 
-Usage:
-    python main.py [options] [file]
+    if getattr(sys, 'frozen', False):
+        # If we're running as a PyInstaller bundle
+        print("""
+    Haiku Programming Language - CLI Help
+    =====================================
 
-Options:
-    -c, --code <code>    Run Haiku code from string
-    -h, --help           Show this help message
-    -v, --version        Show version info
+    Usage:
+        python main.py [options] [file]
 
-Examples:
-    python main.py                    # Start REPL
-    python main.py script.hku         # Run file
-    python main.py -c "println(42)"   # Run inline code
-    python -m haiku                   # Start REPL (package mode)
-    python -m haiku script.hku        # Run file (package mode)
-""")
+    Options:
+        -c, --code <code>    Run Haiku code from string
+        -h, --help           Show this help message
+        -v, --version        Show version info
+
+    Examples:
+        haiku                    # Start REPL
+        haiku script.hku         # Run file
+        haiku -c "println(42)"   # Run inline code
+    """)
+    else:
+        # If we're running as a normal Python script
+        print("""
+    Haiku Programming Language - CLI Help
+    =====================================
+
+    Usage:
+        python main.py [options] [file]
+
+    Options:
+        -c, --code <code>    Run Haiku code from string
+        -h, --help           Show this help message
+        -v, --version        Show version info
+
+    Examples:
+        python main.py                    # Start REPL
+        python main.py script.hku         # Run file
+        python main.py -c "println(42)"   # Run inline code
+        python -m haiku                   # Start REPL (package mode)
+        python -m haiku script.hku        # Run file (package mode)
+    """)
 
 
 def main():
