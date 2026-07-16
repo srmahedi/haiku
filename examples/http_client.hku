@@ -1,0 +1,27 @@
+// HTTP Client Example
+// Demonstrates making HTTP requests to web APIs
+
+println("=== HTTP Client Example ===")
+
+// Note: These examples use example.com - in real usage, replace with actual APIs
+
+// Simple GET request
+println("Making GET request to example.com...")
+try {
+    let response = HTTP.get("https://example.com");
+    println(f"Response: {response}")
+} catch e {
+    println(f"GET request failed: {e}")
+}
+
+// POST request with data
+println("Making POST request...")
+try {
+    let data = {"name": "Haiku", "version": 3.0, "language": "Haiku"};
+    let result = HTTP.post("https://httpbin.org/post", data);
+    println(f"POST response: {result}")
+} catch e {
+    println(f"POST request failed: {e}")
+}
+
+println("=== HTTP Client Example Complete ===")

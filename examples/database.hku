@@ -1,0 +1,55 @@
+// Database Example
+// Demonstrates SQLite database connectivity
+
+println("=== Database Example ===")
+
+// Connect to in-memory database
+println("Connecting to database...")
+let conn = DB.connect(":memory:")
+println(f"Connected: {conn}")
+
+// Create table
+println("Creating table...")
+DB.execute(conn, "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)")
+
+// Insert data
+println("Inserting data...")
+DB.execute(conn, "INSERT INTO users (name, age) VALUES (?, ?)", ["Alice", 30])
+DB.execute(conn, "INSERT INTO users (name, age) VALUES (?, ?)", ["Bob", 25])
+DB.execute(conn, "INSERT INTO users (name, age) VALUES (?, ?)", ["Charlie", 35])
+println("Inserted 3 users")
+
+// Query data
+println("Querying data...")
+let results = DB.execute(conn, "SELECT * FROM users")
+println(f"All users: {results}")
+
+// Query with condition
+println("Querying with condition...")
+let youngUsers = DB.execute(conn, "SELECT * FROM users WHERE age < ?", [30])
+println(f"Users under 30: {youngUsers}")
+
+// Update data
+println("Updating data...")
+DB.execute(conn, "UPDATE users SET age = ? WHERE name = ?", [31, "Alice"])
+println("Updated Alice's age")
+
+// Query to verify update
+let updatedResults = DB.execute(conn, "SELECT * FROM users WHERE name = ?", ["Alice"])
+println(f"Alice after update: {updatedResults}")
+
+// Delete data
+println("Deleting data...")
+DB.execute(conn, "DELETE FROM users WHERE name = ?", ["Bob"])
+println("Deleted Bob")
+
+// Query to verify deletion
+let finalResults = DB.execute(conn, "SELECT * FROM users")
+println(f"Remaining users: {finalResults}")
+
+// Close connection
+println("Closing connection...")
+DB.close(conn)
+println("Connection closed")
+
+println("=== Database Example Complete ===")

@@ -10,16 +10,16 @@ Error reporting includes line numbers and a call-stack traceback.
 
 from typing import List, Optional, Dict, Any
 from .ast_nodes import (
-    Program, Stmt, Expr, VarDecl, FnDecl, ClassDecl, IfStmt, ForStmt,
+    Program, Stmt, Expr, VarDecl, FnDecl, ClassDecl, EnumDecl, IfStmt, ForStmt,
     WhileStmt, MatchStmt, TryStmt, ThrowStmt, ReturnStmt, BreakStmt,
     ContinueStmt, Block, ExprStmt, ImportStmt, Literal, Identifier,
     BinaryExpr, UnaryExpr, AssignExpr, CallExpr, MemberExpr, IndexExpr,
-    ListExpr, MapExpr, MapEntry, LambdaExpr, TernaryExpr, ThisExpr, SuperExpr, FString
+    ListExpr, MapExpr, MapEntry, SetExpr, TupleExpr, LambdaExpr, TernaryExpr, ThisExpr, SuperExpr, FString
 )
 from .values import (
-    HValue, HNumber, HString, HBoolean, HNone, HList, HMap,
+    HValue, HNumber, HString, HBoolean, HNone, HList, HMap, HSet, HTuple,
     HFunction, HClass, HInstance, HNativeFn, HModule,
-    Environment, is_truthy, h_number, h_string, h_bool, h_none, h_list, h_map
+    Environment, is_truthy, h_number, h_string, h_bool, h_none, h_list, h_map, h_set, h_tuple
 )
 
 
@@ -170,6 +170,16 @@ class Interpreter:
             klass = HClass(stmt.name, superclass, methods, static_methods)
             self.environment.define(stmt.name, klass)
             return klass
+
+        if isinstance(stmt, EnumDecl):
+            # Create a map with enum values
+            enum_map = {}
+            for value in stmt.values:
+                enum_map[value] = h_string(value)
+            enum_obj = h_map(enum_map)
+            # Also create the enum as a class-like object
+            self.environment.define(stmt.name, enum_obj)
+            return enum_obj
 
         if isinstance(stmt, IfStmt):
             if is_truthy(self._eval_expr(stmt.condition)):
@@ -346,6 +356,14 @@ class Interpreter:
                 value = self._eval_expr(entry.value)
                 entries[str(key)] = value
             return h_map(entries)
+
+        if isinstance(expr, SetExpr):
+            elements = [self._eval_expr(e) for e in expr.elements]
+            return h_set(elements)
+
+        if isinstance(expr, TupleExpr):
+            elements = [self._eval_expr(e) for e in expr.elements]
+            return h_tuple(elements)
 
         if isinstance(expr, LambdaExpr):
             body = expr.body if isinstance(expr.body, list) else [ReturnStmt(expr.body)]

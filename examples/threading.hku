@@ -1,0 +1,39 @@
+// Threading Example
+// Demonstrates multi-threaded programming
+
+println("=== Threading Example ===")
+
+// Simple task
+fn simpleTask() {
+    return 42
+}
+
+// Spawn a thread
+println("Spawning thread...")
+let threadId = Thread.spawn(simpleTask)
+let result = Thread.join(threadId)
+println(f"Result from thread: {result}")
+
+// Multiple threads
+println("Spawning multiple threads...")
+fn computeSquare() {
+    return 5 * 5
+}
+
+let thread1 = Thread.spawn(computeSquare)
+let thread2 = Thread.spawn(computeSquare)
+let thread3 = Thread.spawn(computeSquare)
+
+let result1 = Thread.join(thread1)
+let result2 = Thread.join(thread2)
+let result3 = Thread.join(thread3)
+
+println(f"Thread results: {result1}, {result2}, {result3}")
+
+// Thread sleep
+println("Testing thread sleep...")
+println("Sleeping for 1 second...")
+Thread.sleep(1000)
+println("Woke up!")
+
+println("=== Threading Example Complete ===")

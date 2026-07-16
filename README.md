@@ -2,8 +2,31 @@
 
 **Haiku** is a modern, expressive programming language designed to be **simpler than Python** while remaining powerful enough for real-world tasks. Haiku features clean syntax, f-strings for easy string interpolation, module imports, first-class functions, object-oriented programming, pattern matching, and a rich standard library.
 
-## What's New in Haiku 2.0
+## What's New in Haiku 3.0 (Production-Ready)
 
+### 🚀 Major New Features
+
+**Essential Systems:**
+- **Real File I/O**: Read/write actual files from disk (`File` module)
+- **HTTP Client**: Make HTTP requests to web APIs (`HTTP` module)
+- **Threading**: Multi-threaded programming support (`Thread` module)
+- **Async/Await**: Asynchronous programming support (`Async` module)
+- **Database**: SQLite database connectivity (`DB` module)
+- **Testing Framework**: Built-in testing tools (`Test` module)
+- **Package Manager**: Install and manage packages (`Pkg` module)
+
+**New Data Structures:**
+- **Sets**: `#{1, 2, 3}` - unordered unique collections
+- **Tuples**: `(1, 2, 3)` - immutable ordered collections
+- **Enums**: `enum Name { VALUE1, VALUE2 }` - compile-time constants
+
+**New Standard Library Modules:**
+- **Regex**: Regular expressions (`Regex` module)
+- **Date**: Date/time manipulation (`Date` module)
+- **Compress**: ZIP and GZIP compression (`Compress` module)
+- **XML**: XML parsing and generation (`XML` module)
+
+### Haiku 2.0 Features
 - **F-strings**: Easy string interpolation with `f"Hello {name}"`
 - **R-strings**: Raw strings for regex and paths with `r"C:\\path\\to\\file"`
 - **Module imports**: Import custom `.hku` files and built-in modules
@@ -89,7 +112,7 @@ let, const, fn, if, else, elif, for, while, return
 class, this, super, import, from, as, true, false, none
 and, or, not, try, catch, finally, throw, match, case
 default, break, continue, in, async, await, yield
-static, private, public
+static, private, public, enum
 ```
 
 ---
@@ -226,6 +249,18 @@ let scores = {
     "bob": 87,
     "charlie": 92
 }
+```
+
+**Set** - unordered unique collection:
+```haiku
+let uniqueNumbers = #{1, 2, 3, 2, 1}  // #{1, 2, 3}
+let colors = #{"red", "green", "blue"}
+```
+
+**Tuple** - immutable ordered collection:
+```haiku
+let coordinates = (10, 20)
+let person = ("Alice", 30, "Engineer")
 ```
 
 ---
@@ -511,6 +546,18 @@ class Counter {
 let c = Counter.create()
 ```
 
+### Enums
+```haiku
+enum Status {
+    PENDING
+    APPROVED
+    REJECTED
+}
+
+let currentStatus = Status.APPROVED
+println(f"Status: {currentStatus}")
+```
+
 ---
 
 ## Collections
@@ -639,13 +686,207 @@ let jsonStr = JSON.stringify(data)
 let parsed = JSON.parse(jsonStr)
 ```
 
-### File Module (In-Memory)
+### File Module (Real File I/O)
 ```haiku
-File.write("hello.txt", "Hello!")
+// Real file operations on disk
+File.write("hello.txt", "Hello, World!")
 let content = File.read("hello.txt")
+println(content)
+
 File.append("hello.txt", "\nMore text.")
 println(File.exists("hello.txt"))
+
+File.mkdir("data")
+println(File.listDir("."))
+println(File.isFile("hello.txt"))
+println(File.isDir("data"))
+
 File.delete("hello.txt")
+```
+
+### HTTP Module (Networking)
+```haiku
+// HTTP requests
+let response = HTTP.get("https://api.example.com/data")
+println(response)
+
+// POST request with data
+let data = {"name": "Haiku", "version": 3.0}
+let result = HTTP.post("https://api.example.com/submit", data)
+println(result)
+
+// Custom request
+let custom = HTTP.request("https://api.example.com", "GET", {}, {"User-Agent": "Haiku"})
+```
+
+### Thread Module (Concurrency)
+```haiku
+fn computeHeavyTask() {
+    let sum = 0
+    for i in range(1, 1000000) {
+        sum = sum + i
+    }
+    return sum
+}
+
+let threadId = Thread.spawn(computeHeavyTask)
+let result = Thread.join(threadId)
+println(f"Result: {result}")
+
+Thread.sleep(1000)  // Sleep for 1 second
+```
+
+### Async Module (Async/Await)
+```haiku
+fn asyncTask() {
+    println("Starting async task")
+    Async.sleep(500)
+    println("Task completed")
+    return "Done"
+}
+
+let result = Async.spawn(asyncTask)
+println(result)
+```
+
+### Test Module (Testing Framework)
+```haiku
+Test.reset()
+
+fn testAddition() {
+    Test.assertEqual(2 + 2, 4, "Addition failed")
+    Test.assertTrue(5 > 3, "Comparison failed")
+}
+
+fn testStrings() {
+    Test.assertEqual("hello" + " world", "hello world", "String concat failed")
+}
+
+Test.run(testAddition)
+Test.run(testStrings)
+
+let results = Test.results()
+println(f"Passed: {results['passed']}")
+println(f"Failed: {results['failed']}")
+```
+
+### Pkg Module (Package Manager)
+```haiku
+// Search for packages
+let results = Pkg.search("http")
+println(results)
+
+// Install a package
+Pkg.install("http-client")
+
+// List installed packages
+let installed = Pkg.list()
+println(installed)
+
+// Remove a package
+Pkg.remove("http-client")
+```
+
+### Regex Module (Regular Expressions)
+```haiku
+let text = "Hello, World! 123"
+
+// Match pattern
+let hasNumber = Regex.match(r"\d+", text)
+println(f"Has number: {hasNumber}")
+
+// Find all matches
+let numbers = Regex.findAll(r"\d+", text)
+println(f"Numbers: {numbers}")
+
+// Replace
+let replaced = Regex.replace(r"\d+", "XXX", text)
+println(f"Replaced: {replaced}")
+
+// Split
+let parts = Regex.split(r",\s*", "a, b, c")
+println(f"Parts: {parts}")
+```
+
+### Date Module (Date/Time Manipulation)
+```haiku
+// Current time
+let now = Date.now()
+println(f"Now: {now}")
+
+// Parse date
+let parsed = Date.parse("2024-01-15T10:30:00")
+println(f"Year: {parsed['year']}")
+println(f"Month: {parsed['month']}")
+
+// Format date
+let formatted = Date.format("2024-01-15", "%Y-%m-%d")
+println(f"Formatted: {formatted}")
+
+// Add days
+let future = Date.addDays("2024-01-15", 7)
+println(f"Next week: {future}")
+
+// Add hours
+let later = Date.addHours("2024-01-15T10:00:00", 5)
+println(f"5 hours later: {later}")
+```
+
+### Compress Module (ZIP/GZIP)
+```haiku
+// GZIP compression
+let data = "Hello, World! This is a test string."
+let compressed = Compress.gzipCompress(data)
+println(f"Compressed: {compressed}")
+
+let decompressed = Compress.gzipDecompress(compressed)
+println(f"Decompressed: {decompressed}")
+
+// ZIP archive
+let files = {
+    "file1.txt": "Content of file 1",
+    "file2.txt": "Content of file 2"
+}
+let zipData = Compress.zipCreate(files)
+let extracted = Compress.zipExtract(zipData)
+println(f"Extracted: {extracted}")
+```
+
+### DB Module (SQLite Database)
+```haiku
+// Connect to database
+let conn = DB.connect(":memory:")
+
+// Create table
+DB.execute(conn, "CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)")
+
+// Insert data
+DB.execute(conn, "INSERT INTO users (name, age) VALUES (?, ?)", ["Alice", 30])
+DB.execute(conn, "INSERT INTO users (name, age) VALUES (?, ?)", ["Bob", 25])
+
+// Query data
+let results = DB.execute(conn, "SELECT * FROM users")
+println(f"Users: {results}")
+
+// Update data
+DB.execute(conn, "UPDATE users SET age = ? WHERE name = ?", [31, "Alice"])
+
+// Close connection
+DB.close(conn)
+```
+
+### XML Module (XML Parsing)
+```haiku
+// Parse XML
+let xmlStr = "<root><user><name>Alice</name><age>30</age></user></root>"
+let parsed = XML.parse(xmlStr)
+println(f"Tag: {parsed['tag']}")
+println(f"Text: {parsed['text']}")
+println(f"Children: {parsed['children']}")
+
+// Convert back to XML
+let xmlBack = XML.toString(parsed)
+println(f"XML: {xmlBack}")
 ```
 
 ### Assertions
@@ -878,16 +1119,28 @@ println(f"Average age: {totalAge / users.len()}")
 | Module Imports | Complete | Import .hku files and built-in modules |
 | Lexical Analysis | Complete | Keywords, identifiers, literals, comments, operators |
 | Primitive Types | Complete | Number, String, Boolean, None |
-| Collections | Complete | List, Map with rich native methods |
+| Collections | Complete | List, Map, Set, Tuple with rich native methods |
 | Variables | Complete | let (mutable), const (immutable), block scope |
 | Operators | Complete | Arithmetic, comparison, logical, bitwise, assignment, ternary |
 | Control Flow | Complete | if/elif/else, for, while, match, break, continue |
 | Functions | Complete | Named, anonymous, lambda, default params, variadic, closures, higher-order |
 | OOP | Complete | Classes, inheritance, super, static methods, encapsulation |
+| Enums | Complete | Compile-time constants with enum syntax |
 | Error Handling | Complete | try/catch/finally, throw |
 | Error Tracebacks | Complete | Full call-stack with exact line numbers on every runtime error |
 | Unclosed Comment Detection | Complete | `/* */` that is never closed raises LexerError with line number |
 | Package Mode | Complete | `python -m haiku` works alongside `python main.py` via `haiku/__main__.py` |
+| Real File I/O | Complete | Read/write actual files from disk |
+| HTTP Client | Complete | Make HTTP requests to web APIs |
+| Threading | Complete | Multi-threaded programming support |
+| Async/Await | Complete | Asynchronous programming support |
+| Database | Complete | SQLite database connectivity |
+| Testing Framework | Complete | Built-in testing tools |
+| Package Manager | Complete | Install and manage packages |
+| Regex | Complete | Regular expressions support |
+| Date/Time | Complete | Date/time manipulation |
+| Compression | Complete | ZIP and GZIP compression |
+| XML | Complete | XML parsing and generation |
 | Standard Library | Complete | I/O, Math, Time, JSON, File, type utilities |
 | String Processing | Complete | Methods: upper, lower, trim, split, contains, replace, slice |
 | List Processing | Complete | Methods: push, pop, shift, map, filter, reduce, sort, find |

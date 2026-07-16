@@ -1,0 +1,61 @@
+// Data Structures Example
+// Demonstrates sets, tuples, and enums
+
+println("=== Data Structures Example ===")
+
+// Sets - unordered unique collections
+println("=== Sets ===")
+let uniqueNumbers = #{1, 2, 3, 2, 1, 4, 3}
+println(f"Unique numbers: {uniqueNumbers}")
+
+let colors = #{"red", "green", "blue", "red"}
+println(f"Colors: {colors}")
+
+// Tuples - immutable ordered collections
+println("=== Tuples ===")
+let coordinates = (10, 20)
+println(f"Coordinates: {coordinates}")
+
+let person = ("Alice", 30, "Engineer")
+println(f"Person: {person}")
+
+let point3D = (1.5, 2.5, 3.5)
+println(f"3D Point: {point3D}")
+
+// Enums - compile-time constants
+println("=== Enums ===")
+enum Status {
+    PENDING
+    APPROVED
+    REJECTED
+}
+
+let currentStatus = Status.APPROVED
+println(f"Current status: {currentStatus}")
+
+enum Direction {
+    NORTH
+    SOUTH
+    EAST
+    WEST
+}
+
+let direction = Direction.NORTH
+println(f"Direction: {direction}")
+
+// Using enums in match
+match direction {
+    Direction.NORTH => println("Going North")
+    Direction.SOUTH => println("Going South")
+    Direction.EAST => println("Going East")
+    Direction.WEST => println("Going West")
+    default => println("Unknown direction")
+}
+
+// Combining data structures
+println("=== Combined Usage ===")
+let dataSet = #{"apple", "banana", "cherry"}
+let dataTuple = (dataSet, 5, "fruits")
+println(f"Combined: {dataTuple}")
+
+println("=== Data Structures Example Complete ===")

@@ -1,0 +1,38 @@
+// XML Parsing Example
+// Demonstrates XML parsing and generation
+
+println("=== XML Parsing Example ===")
+
+// Parse XML
+println("=== Parsing XML ===")
+let xmlStr = "<root><user><name>Alice</name><age>30</age></user></root>"
+println(f"Original XML: {xmlStr}")
+
+let parsed = XML.parse(xmlStr)
+println(f"Parsed tag: {parsed['tag']}")
+println(f"Parsed text: {parsed['text']}")
+println(f"Parsed attributes: {parsed['attrib']}")
+
+// Access children
+println("=== Accessing Children ===")
+let children = parsed['children']
+println(f"Number of children: {children.len()}")
+
+// Parse more complex XML
+println("=== Complex XML ===")
+let complexXml = "<data><item id='1'>First</item><item id='2'>Second</item></data>"
+let complexParsed = XML.parse(complexXml)
+println(f"Complex parsed: {complexParsed}")
+
+// Convert back to XML
+println("=== Converting Back to XML ===")
+let xmlBack = XML.toString(parsed)
+println(f"Reconstructed XML: {xmlBack}")
+
+// Parse nested XML
+println("=== Nested XML ===")
+let nestedXml = "<config><database><host>localhost</host><port>5432</port></database></config>"
+let nestedParsed = XML.parse(nestedXml)
+println(f"Nested parsed: {nestedParsed}")
+
+println("=== XML Parsing Example Complete ===")

@@ -101,6 +101,20 @@ class MapExpr:
 
 
 @dataclass
+class SetExpr:
+    """Set literal: #{1, 2, 3}"""
+    elements: List["Expr"]
+    line: int = 0
+
+
+@dataclass
+class TupleExpr:
+    """Tuple literal: (1, 2, 3)"""
+    elements: List["Expr"]
+    line: int = 0
+
+
+@dataclass
 class LambdaExpr:
     """Anonymous function / lambda: (x) => x * 2  or fn(x) { ... }"""
     params: List["Param"]
@@ -139,7 +153,7 @@ class FString:
 
 Expr = Union[
     Literal, Identifier, BinaryExpr, UnaryExpr, AssignExpr,
-    CallExpr, MemberExpr, IndexExpr, ListExpr, MapExpr,
+    CallExpr, MemberExpr, IndexExpr, ListExpr, MapExpr, SetExpr, TupleExpr,
     LambdaExpr, TernaryExpr, ThisExpr, SuperExpr, FString
 ]
 
@@ -180,6 +194,14 @@ class ClassDecl:
     name: str
     superclass: Optional[Identifier]
     methods: List[FnDecl]
+    line: int = 0
+
+
+@dataclass
+class EnumDecl:
+    """Enum declaration: enum Name { VALUE1, VALUE2, ... }"""
+    name: str
+    values: List[str]
     line: int = 0
 
 
@@ -285,7 +307,7 @@ class ImportStmt:
 
 
 Stmt = Union[
-    VarDecl, FnDecl, ClassDecl, IfStmt, ForStmt, WhileStmt,
+    VarDecl, FnDecl, ClassDecl, EnumDecl, IfStmt, ForStmt, WhileStmt,
     MatchStmt, TryStmt, ThrowStmt, ReturnStmt, BreakStmt,
     ContinueStmt, Block, ExprStmt, ImportStmt
 ]

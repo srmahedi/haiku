@@ -1,0 +1,45 @@
+// File I/O Example
+// Demonstrates real file operations on disk
+
+println("=== File I/O Example ===")
+
+// Write to a file
+File.write("test.txt", "Hello, World!")
+println("Written to test.txt")
+
+// Read from the file
+let content = File.read("test.txt")
+println(f"Content: {content}")
+
+// Append to the file
+File.append("test.txt", "\nThis is appended text.")
+println("Appended to test.txt")
+
+// Read again to see the appended content
+let updatedContent = File.read("test.txt")
+println(f"Updated content: {updatedContent}")
+
+// Check if file exists
+println(f"File exists: {File.exists('test.txt')}")
+
+// Create a directory
+File.mkdir("test_dir")
+println("Created test_dir directory")
+
+// List directory contents
+let files = File.listDir(".")
+println(f"Directory contents: {files}")
+
+// Check file/directory types
+println(f"test.txt is file: {File.isFile('test.txt')}")
+println(f"test_dir is directory: {File.isDir('test_dir')}")
+
+// Clean up
+File.delete("test.txt")
+println("Deleted test.txt")
+
+// Note: Directory deletion may fail on some systems due to permissions
+// File.delete("test_dir")
+// println("Cleaned up test_dir")
+
+println("=== File I/O Example Complete ===")

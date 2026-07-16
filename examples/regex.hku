@@ -1,0 +1,48 @@
+// Regular Expressions Example
+// Demonstrates regex pattern matching
+
+println("=== Regular Expressions Example ===")
+
+let text = "Hello, World! 123 The year is 2024"
+
+// Match pattern
+let hasNumber = Regex.match(r"\d+", text)
+println(f"Has number: {hasNumber}")
+
+let hasWord = Regex.match(r"World", text)
+println(f"Has 'World': {hasWord}")
+
+// Find all matches
+let numbers = Regex.findAll(r"\d+", text)
+println(f"All numbers: {numbers}")
+
+let words = Regex.findAll(r"\b\w+\b", text)
+println(f"All words: {words}")
+
+// Replace
+let replaced = Regex.replace(r"\d+", "XXX", text)
+println(f"Replaced numbers: {replaced}")
+
+let replacedWord = Regex.replace(r"World", "Haiku", text)
+println(f"Replaced 'World': {replacedWord}")
+
+// Split
+let parts = Regex.split(r",\s*", "apple, banana, cherry, date")
+println(f"Split by comma: {parts}")
+
+let wordsSplit = Regex.split(r"\s+", text)
+println(f"Split by whitespace: {wordsSplit}")
+
+// Email validation
+let email = "user@example.com"
+let emailPattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+let isValidEmail = Regex.match(emailPattern, email)
+println(f"Valid email: {isValidEmail}")
+
+// Phone number validation
+let phone = "123-456-7890"
+let phonePattern = r"^\d{3}-\d{3}-\d{4}$"
+let isValidPhone = Regex.match(phonePattern, phone)
+println(f"Valid phone: {isValidPhone}")
+
+println("=== Regular Expressions Example Complete ===")

@@ -1,0 +1,44 @@
+// Compression Example
+// Demonstrates ZIP and GZIP compression
+
+println("=== Compression Example ===")
+
+// GZIP compression
+println("=== GZIP Compression ===")
+let data = "Hello, World! This is a test string for compression."
+println(f"Original data: {data}")
+
+let compressed = Compress.gzipCompress(data)
+println(f"Compressed (hex): {compressed}")
+
+let decompressed = Compress.gzipDecompress(compressed)
+println(f"Decompressed: {decompressed}")
+
+// ZIP archive
+println("=== ZIP Archive ===")
+let files = {
+    "file1.txt": "Content of file 1",
+    "file2.txt": "Content of file 2",
+    "file3.txt": "Content of file 3"
+}
+
+println("Creating ZIP archive...")
+let zipData = Compress.zipCreate(files)
+println(f"ZIP created (hex): {zipData}")
+
+println("Extracting ZIP archive...")
+let extracted = Compress.zipExtract(zipData)
+println(f"Extracted files: {extracted}")
+
+// Large data compression
+println("=== Large Data Compression ===")
+let largeData = "This is a repeated string. " * 50
+println(f"Original length: {largeData.len()}")
+
+let largeCompressed = Compress.gzipCompress(largeData)
+println(f"Compressed length: {largeCompressed.len() / 2}")  // Hex is 2 chars per byte
+
+let largeDecompressed = Compress.gzipDecompress(largeCompressed)
+println(f"Decompressed length: {largeDecompressed.len()}")
+
+println("=== Compression Example Complete ===")

@@ -79,6 +79,32 @@ class HMap(HValue):
         return "{" + ", ".join(items) + "}"
 
 
+class HSet(HValue):
+    def __init__(self, elements: List[HValue]):
+        super().__init__("set")
+        # Store as list of unique values (using string representation for uniqueness)
+        seen = set()
+        unique_elements = []
+        for elem in elements:
+            elem_str = str(elem)
+            if elem_str not in seen:
+                seen.add(elem_str)
+                unique_elements.append(elem)
+        self.elements = unique_elements
+
+    def __str__(self) -> str:
+        return "{" + ", ".join(str(e) for e in self.elements) + "}"
+
+
+class HTuple(HValue):
+    def __init__(self, elements: List[HValue]):
+        super().__init__("tuple")
+        self.elements = elements
+
+    def __str__(self) -> str:
+        return "(" + ", ".join(str(e) for e in self.elements) + ")"
+
+
 class HFunction(HValue):
     def __init__(self, name: str, params: List[Any], body: List[Any],
                  closure: "Environment", is_async: bool = False):
@@ -227,3 +253,11 @@ def h_list(elements: List[HValue]) -> HList:
 
 def h_map(entries: Dict[str, HValue]) -> HMap:
     return HMap(entries)
+
+
+def h_set(elements: List[HValue]) -> HSet:
+    return HSet(elements)
+
+
+def h_tuple(elements: List[HValue]) -> HTuple:
+    return HTuple(elements)

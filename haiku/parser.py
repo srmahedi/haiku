@@ -7,13 +7,13 @@ statements including functions, classes, control flow, and pattern matching.
 """
 
 from typing import List, Optional, Union
-from .lexer import Token, TokenType
+from .lexer import Token, TokenType, KEYWORDS
 from .ast_nodes import (
-    Program, Stmt, Expr, Param, VarDecl, FnDecl, ClassDecl,
+    Program, Stmt, Expr, Param, VarDecl, FnDecl, ClassDecl, EnumDecl,
     IfStmt, ForStmt, WhileStmt, MatchStmt, MatchCase, TryStmt,
     ThrowStmt, ReturnStmt, BreakStmt, ContinueStmt, Block, ExprStmt,
     ImportStmt, Literal, Identifier, BinaryExpr, UnaryExpr, AssignExpr,
-    CallExpr, MemberExpr, IndexExpr, ListExpr, MapExpr, MapEntry,
+    CallExpr, MemberExpr, IndexExpr, ListExpr, MapExpr, MapEntry, SetExpr, TupleExpr,
     LambdaExpr, TernaryExpr, ThisExpr, SuperExpr, FString
 )
 
@@ -56,7 +56,7 @@ class Parser:
 
     def _check(self, *types: TokenType) -> bool:
         if self._at_end():
-            return False
+            return TokenType.EOF in types
         return self._peek().type in types
 
     def _match(self, *types: TokenType) -> bool:
@@ -81,6 +81,10 @@ class Parser:
         elif not self._check(TokenType.RBRACE, TokenType.EOF):
             if self._check(TokenType.SEMICOLON):
                 self._advance()
+            else:
+                tok = self._peek()
+                raise ParseError(f"Expected newline or semicolon after statement (got {tok.type.name} '{tok.value}' at line {tok.line})")
+        # If at RBRACE or EOF, no separator needed
 
     def _line(self) -> int:
         """Return the line number of the current token."""
@@ -102,6 +106,8 @@ class Parser:
             return self._fn_decl(is_static=False)
         if self._check(TokenType.CLASS):
             return self._class_decl()
+        if self._check(TokenType.ENUM):
+            return self._enum_decl()
         if self._check(TokenType.IF):
             return self._if_stmt()
         if self._check(TokenType.FOR):
@@ -187,6 +193,23 @@ class Parser:
             self._skip_newlines()
         self._expect(TokenType.RBRACE, "Expected '}' after class body")
         return ClassDecl(name, superclass, methods, line)
+
+    def _enum_decl(self) -> EnumDecl:
+        line = self._line()
+        self._expect(TokenType.ENUM, "Expected 'enum'")
+        name = self._expect(TokenType.IDENTIFIER, "Expected enum name").value
+        self._expect(TokenType.LBRACE, "Expected '{' after enum name")
+        
+        values: List[str] = []
+        self._skip_newlines()
+        while not self._check(TokenType.RBRACE) and not self._at_end():
+            value = self._expect(TokenType.IDENTIFIER, "Expected enum value").value
+            values.append(value)
+            self._match(TokenType.COMMA)
+            self._skip_newlines()
+        
+        self._expect(TokenType.RBRACE, "Expected '}' after enum values")
+        return EnumDecl(name, values, line)
 
     def _if_stmt(self) -> IfStmt:
         line = self._line()
@@ -446,10 +469,20 @@ class Parser:
                 self._expect(TokenType.RBRACKET, "Expected ']' after index")
                 expr = IndexExpr(expr, idx, line)
             elif self._match(TokenType.DOT):
-                prop = self._expect(TokenType.IDENTIFIER, "Expected property name after '.'").value
+                tok = self._peek()
+                if tok.type == TokenType.IDENTIFIER or tok.type in KEYWORDS.values():
+                    self._advance()
+                    prop = tok.value
+                else:
+                    raise ParseError(f"Expected property name after '.' (got {tok.type.name} '{tok.value}' at line {tok.line})")
                 expr = MemberExpr(expr, prop, False, line)
             elif self._match(TokenType.QDOT):
-                prop = self._expect(TokenType.IDENTIFIER, "Expected property after '?.'").value
+                tok = self._peek()
+                if tok.type == TokenType.IDENTIFIER or tok.type in KEYWORDS.values():
+                    self._advance()
+                    prop = tok.value
+                else:
+                    raise ParseError(f"Expected property after '?.' (got {tok.type.name} '{tok.value}' at line {tok.line})")
                 expr = MemberExpr(expr, prop, True, line)
             else:
                 break
@@ -480,7 +513,7 @@ class Parser:
             method = self._expect(TokenType.IDENTIFIER, "Expected method name after 'super.'").value
             return SuperExpr(method, self._prev_line())
         if self._match(TokenType.LPAREN):
-            # Lambda detection
+            # Lambda detection first
             saved = self.pos
             try:
                 params = self._parameters()
@@ -493,9 +526,29 @@ class Parser:
                     else:
                         body = self._expression()
                         return LambdaExpr(params, body, line)
+                else:
+                    raise ParseError("Not a lambda")
+            except ParseError:
+                self.pos = saved
+
+            # Tuple detection: (expr, expr, ...)
+            saved = self.pos
+            try:
+                elements: List[Expr] = []
+                if not self._check(TokenType.RPAREN):
+                    elements.append(self._expression())
+                    if self._match(TokenType.COMMA):
+                        # It's a tuple
+                        while not self._check(TokenType.RPAREN):
+                            elements.append(self._expression())
+                            if not self._match(TokenType.COMMA):
+                                break
+                        self._expect(TokenType.RPAREN, "Expected ')' after tuple elements")
+                        return TupleExpr(elements, line)
             except ParseError:
                 pass
             self.pos = saved
+            
             expr = self._expression()
             self._expect(TokenType.RPAREN, "Expected ')' after expression")
             return expr
@@ -508,16 +561,32 @@ class Parser:
                         break
             self._expect(TokenType.RBRACKET, "Expected ']' after list elements")
             return ListExpr(elements, line)
+        if self._match(TokenType.HASH):
+            self._expect(TokenType.LBRACE, "Expected '{' after '#' for set literal")
+            elements: List[Expr] = []
+            self._skip_newlines()
+            if not self._check(TokenType.RBRACE):
+                while True:
+                    elements.append(self._expression())
+                    self._skip_newlines()
+                    if not self._match(TokenType.COMMA):
+                        break
+                    self._skip_newlines()
+            self._expect(TokenType.RBRACE, "Expected '}' after set elements")
+            return SetExpr(elements, line)
         if self._match(TokenType.LBRACE):
             entries: List[MapEntry] = []
+            self._skip_newlines()
             if not self._check(TokenType.RBRACE):
                 while True:
                     key = self._expression()
                     self._expect(TokenType.COLON, "Expected ':' in map entry")
                     value = self._expression()
                     entries.append(MapEntry(key, value))
+                    self._skip_newlines()
                     if not self._match(TokenType.COMMA):
                         break
+                    self._skip_newlines()
             self._expect(TokenType.RBRACE, "Expected '}' after map entries")
             return MapExpr(entries, line)
         if self._match(TokenType.FN):

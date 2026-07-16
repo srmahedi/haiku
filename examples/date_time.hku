@@ -1,0 +1,56 @@
+// Date/Time Example
+// Demonstrates date and time manipulation
+
+println("=== Date/Time Example ===")
+
+// Current time
+println("=== Current Time ===")
+let now = Date.now()
+println(f"Current time (ISO): {now}")
+
+// Parse date
+println("=== Parse Date ===")
+let parsed = Date.parse("2024-01-15T10:30:00")
+println(f"Parsed date:")
+println(f"  Year: {parsed['year']}")
+println(f"  Month: {parsed['month']}")
+println(f"  Day: {parsed['day']}")
+println(f"  Hour: {parsed['hour']}")
+println(f"  Minute: {parsed['minute']}")
+println(f"  Second: {parsed['second']}")
+
+// Format date
+println("=== Format Date ===")
+let formatted = Date.format("2024-01-15", "%Y-%m-%d")
+println(f"Formatted (Y-m-d): {formatted}")
+
+let formattedFull = Date.format("2024-01-15T10:30:00", "%Y-%m-%d %H:%M:%S")
+println(f"Formatted (full): {formattedFull}")
+
+let formattedCustom = Date.format("2024-01-15", "%A, %B %d, %Y")
+println(f"Formatted (custom): {formattedCustom}")
+
+// Add days
+println("=== Add Days ===")
+let future = Date.addDays("2024-01-15", 7)
+println(f"7 days later: {future}")
+
+let past = Date.addDays("2024-01-15", -7)
+println(f"7 days earlier: {past}")
+
+// Add hours
+println("=== Add Hours ===")
+let later = Date.addHours("2024-01-15T10:00:00", 5)
+println(f"5 hours later: {later}")
+
+let earlier = Date.addHours("2024-01-15T10:00:00", -3)
+println(f"3 hours earlier: {earlier}")
+
+// Calculate date differences
+println("=== Date Calculations ===")
+let today = Date.now()
+let nextWeek = Date.addDays(today, 7)
+println(f"Today: {today}")
+println(f"Next week: {nextWeek}")
+
+println("=== Date/Time Example Complete ===")

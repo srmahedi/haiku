@@ -30,6 +30,6 @@ let scores = {
 }
 
 println(f"Scores: {scores}")
-println(f"Alice's score: {scores["alice"]}")
+println(f"Alice's score: {scores['alice']}")
 println(f"Keys: {scores.keys()}")
 println(f"Values: {scores.values()}")

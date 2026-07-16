@@ -1,0 +1,47 @@
+// Async/Await Example
+// Demonstrates asynchronous programming
+
+println("=== Async/Await Example ===")
+
+// Simple async task
+fn asyncTask() {
+    println("Starting async task...")
+    Async.sleep(500)
+    println("Task completed!")
+    return "Done"
+}
+
+println("Spawning async task...")
+let result = Async.spawn(asyncTask)
+println(f"Result: {result}")
+
+// Multiple async tasks
+fn task1() {
+    println("Task 1 started")
+    Async.sleep(300)
+    println("Task 1 completed")
+    return 1
+}
+
+fn task2() {
+    println("Task 2 started")
+    Async.sleep(200)
+    println("Task 2 completed")
+    return 2
+}
+
+fn task3() {
+    println("Task 3 started")
+    Async.sleep(100)
+    println("Task 3 completed")
+    return 3
+}
+
+println("Running multiple async tasks...")
+let r1 = Async.spawn(task1)
+let r2 = Async.spawn(task2)
+let r3 = Async.spawn(task3)
+
+println(f"Results: {r1}, {r2}, {r3}")
+
+println("=== Async/Await Example Complete ===")

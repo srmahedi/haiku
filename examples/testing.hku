@@ -1,0 +1,63 @@
+// Testing Framework Example
+// Demonstrates the built-in testing tools
+
+println("=== Testing Framework Example ===")
+
+// Reset test counters
+Test.reset()
+
+// Test function for basic arithmetic
+fn testArithmetic() {
+    Test.assertEqual(2 + 2, 4, "Addition should work");
+    Test.assertEqual(10 - 5, 5, "Subtraction should work");
+    Test.assertEqual(3 * 4, 12, "Multiplication should work");
+    Test.assertEqual(20 / 4, 5, "Division should work")
+}
+
+// Test function for comparisons
+fn testComparisons() {
+    Test.assertTrue(5 > 3, "5 should be greater than 3");
+    Test.assertTrue(10 < 20, "10 should be less than 20");
+    Test.assertFalse(5 == 3, "5 should not equal 3");
+    Test.assertTrue(5 >= 5, "5 should be greater than or equal to 5")
+}
+
+// Test function for strings
+fn testStrings() {
+    Test.assertEqual("hello" + " world", "hello world", "String concatenation");
+    Test.assertTrue("hello".contains("ell"), "Should contain substring");
+    Test.assertEqual("hello".len(), 5, "String length")
+}
+
+// Test function for collections
+fn testCollections() {
+    let list = [1, 2, 3];
+    Test.assertEqual(list.len(), 3, "List length");
+    Test.assertTrue(list.contains(2), "List should contain 2");
+    
+    let map = {"a": 1, "b": 2};
+    Test.assertTrue(map.has("a"), "Map should have key 'a'")
+}
+
+// Run all tests
+println("Running tests...")
+Test.run(testArithmetic)
+Test.run(testComparisons)
+Test.run(testStrings)
+Test.run(testCollections)
+
+// Get and display results
+let results = Test.results()
+println(f"Tests passed: {results['passed']}")
+println(f"Tests failed: {results['failed']}")
+
+if results['failed'] > 0 {
+    println("Failed tests:")
+    for error in results['errors'].elements {
+        println(f"  - {error}")
+    }
+} else {
+    println("All tests passed!")
+}
+
+println("=== Testing Framework Example Complete ===")

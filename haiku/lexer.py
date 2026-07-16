@@ -33,6 +33,7 @@ class TokenType(Enum):
     IN = auto(); ASYNC = auto(); AWAIT = auto()
     YIELD = auto(); STATIC = auto()
     PRIVATE = auto(); PUBLIC = auto()
+    ENUM = auto()
 
     # Operators
     PLUS = auto(); MINUS = auto(); STAR = auto()
@@ -54,6 +55,7 @@ class TokenType(Enum):
     LBRACKET = auto(); RBRACKET = auto()
     COMMA = auto(); SEMICOLON = auto()
     NEWLINE = auto()
+    HASH = auto()
 
     EOF = auto()
 
@@ -77,7 +79,7 @@ KEYWORDS = {
     "in": TokenType.IN, "async": TokenType.ASYNC,
     "await": TokenType.AWAIT, "yield": TokenType.YIELD,
     "static": TokenType.STATIC, "private": TokenType.PRIVATE,
-    "public": TokenType.PUBLIC,
+    "public": TokenType.PUBLIC, "enum": TokenType.ENUM,
 }
 
 
@@ -157,9 +159,9 @@ class Lexer:
         elif ch == ")":
             self.bracket_depth -= 1; self._add_token(TokenType.RPAREN, ch)
         elif ch == "{":
-            self.bracket_depth += 1; self._add_token(TokenType.LBRACE, ch)
+            self._add_token(TokenType.LBRACE, ch)
         elif ch == "}":
-            self.bracket_depth -= 1; self._add_token(TokenType.RBRACE, ch)
+            self._add_token(TokenType.RBRACE, ch)
         elif ch == "[":
             self.bracket_depth += 1; self._add_token(TokenType.LBRACKET, ch)
         elif ch == "]":
@@ -168,6 +170,8 @@ class Lexer:
             self._add_token(TokenType.COMMA, ch)
         elif ch == ";":
             self._add_token(TokenType.SEMICOLON, ch)
+        elif ch == "#":
+            self._add_token(TokenType.HASH, ch)
 
         # Operators
         elif ch == "+":

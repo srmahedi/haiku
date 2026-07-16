@@ -1,0 +1,47 @@
+// Package Manager Example
+// Demonstrates the package manager system
+
+println("=== Package Manager Example ===")
+
+// Search for packages
+println("Searching for packages...")
+let httpResults = Pkg.search("http")
+println(f"HTTP packages: {httpResults}")
+
+let dateResults = Pkg.search("date")
+println(f"Date packages: {dateResults}")
+
+// List installed packages
+println("Installed packages:")
+let installed = Pkg.list()
+println(installed)
+
+// Install a package (simulated)
+println("Installing http-client package...")
+try {
+    let result = Pkg.install("http-client")
+    println(result)
+} catch e {
+    println(f"Install failed: {e}")
+}
+
+// List installed packages again
+println("Installed packages after install:")
+let installedAfter = Pkg.list()
+println(installedAfter)
+
+// Remove a package
+println("Removing http-client package...")
+try {
+    let result = Pkg.remove("http-client")
+    println(result)
+} catch e {
+    println(f"Remove failed: {e}")
+}
+
+// List installed packages after removal
+println("Installed packages after removal:")
+let installedFinal = Pkg.list()
+println(installedFinal)
+
+println("=== Package Manager Example Complete ===")
