@@ -24,8 +24,15 @@ class HValue:
 
 
 class HNumber(HValue):
-    def __init__(self, value: float):
-        super().__init__("number")
+    def __init__(self, value: float, literal_type: Optional[str] = None):
+        # Use "int" for whole numbers, "float" for decimals
+        # literal_type can be used to override the automatic detection
+        if literal_type:
+            type_name = literal_type
+        else:
+            # Check if the value is a whole number (works for both int and float)
+            type_name = "int" if (isinstance(value, int) or (isinstance(value, float) and value.is_integer())) else "float"
+        super().__init__(type_name)
         self.value = value
 
     def __str__(self) -> str:
@@ -231,8 +238,8 @@ def is_truthy(value: HValue) -> bool:
     return True
 
 
-def h_number(value: float) -> HNumber:
-    return HNumber(value)
+def h_number(value: float, literal_type: Optional[str] = None) -> HNumber:
+    return HNumber(value, literal_type)
 
 
 def h_string(value: str) -> HString:

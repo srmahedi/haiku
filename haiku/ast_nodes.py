@@ -19,6 +19,7 @@ class Literal:
     """Numeric, string, boolean, or none literal."""
     value: Union[int, float, str, bool, None]
     line: int = 0
+    literal_type: Optional[str] = None  # For numbers: "int" or "float" to preserve literal type
 
 
 @dataclass

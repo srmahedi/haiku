@@ -34,6 +34,9 @@
 - **Error tracebacks**: Full call-stack traceback with exact line numbers on every runtime error
 - **Unclosed comment detection**: `/* ... */` comments that are never closed now raise a clear `LexerError` instead of silently skipping code
 
+### Latest Updates
+- **Distinct `int` and `float` types**: Whole numbers (e.g. `5`) now report type `"int"` and decimal numbers (e.g. `5.5`) report type `"float"` — `type(5)` → `"int"`, `type(5.5)` → `"float"`
+
 - **File Extension**: `.hku`
 - **Base Language**: Python (interpreter written in Python)
 - **Paradigm**: Multi-paradigm (procedural, object-oriented, functional)
@@ -219,19 +222,26 @@ println(f"Module version: {version}")
 
 ### Primitive Types
 
-| Type | Example | Description |
-|------|---------|-------------|
-| Number | `42`, `3.14` | Integers and floats |
-| String | `"hello"`, `'world'` | Text with escape sequences |
-| Boolean | `true`, `false` | Logical values |
-| None | `none` | Absence of value |
+| Type | Example | `type()` returns | Description |
+|------|---------|-----------------|-------------|
+| `int` | `42`, `0`, `-7` | `"int"` | Whole numbers |
+| `float` | `3.14`, `19.99` | `"float"` | Decimal / floating-point numbers |
+| `string` | `"hello"`, `'world'` | `"string"` | Text with escape sequences |
+| `boolean` | `true`, `false` | `"boolean"` | Logical values |
+| `none` | `none` | `"none"` | Absence of value |
 
 ```haiku
-let count = 42
-let price = 19.99
-let message = "Hello"
-let active = true
-let empty = none
+let count = 42       // int
+let price = 19.99    // float
+let message = "Hello" // string
+let active = true    // boolean
+let empty = none     // none
+
+println(type(count))    // int
+println(type(price))    // float
+println(type(message))  // string
+println(type(active))   // boolean
+println(type(empty))    // none
 ```
 
 ### Collection Types
@@ -636,9 +646,20 @@ println(f"Hello, {name}")
 type(value)     // Get type name as string
 len(value)      // Get length of string/list/map
 str(value)      // Convert to string
-int(value)      // Convert to integer
+int(value)      // Convert to integer (truncates decimals)
 float(value)    // Convert to float
 bool(value)     // Convert to boolean
+```
+
+Type name reference:
+```haiku
+println(type(5))        // int
+println(type(5.5))      // float
+println(type("hello"))  // string
+println(type(true))     // boolean
+println(type(none))     // none
+println(type([1,2,3]))  // list
+println(type({"a":1}))  // map
 ```
 
 ### Range
@@ -1118,7 +1139,7 @@ println(f"Average age: {totalAge / users.len()}")
 | R-Strings | Complete | Raw strings for regex/paths with r"text" |
 | Module Imports | Complete | Import .hku files and built-in modules |
 | Lexical Analysis | Complete | Keywords, identifiers, literals, comments, operators |
-| Primitive Types | Complete | Number, String, Boolean, None |
+| Primitive Types | Complete | `int`, `float`, `string`, `boolean`, `none` — integers and floats are distinct types |
 | Collections | Complete | List, Map, Set, Tuple with rich native methods |
 | Variables | Complete | let (mutable), const (immutable), block scope |
 | Operators | Complete | Arithmetic, comparison, logical, bitwise, assignment, ternary |

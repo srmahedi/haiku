@@ -497,7 +497,10 @@ class Parser:
         if self._match(TokenType.NONE):
             return Literal(None, line)
         if self._match(TokenType.NUMBER):
-            return Literal(float(self._previous().value), self._prev_line())
+            token_value = self._previous().value
+            # Determine if this was written as a float (contains decimal point)
+            literal_type = "float" if "." in token_value else None
+            return Literal(float(token_value), self._prev_line(), literal_type)
         if self._match(TokenType.STRING):
             return Literal(self._previous().value, self._prev_line())
         if self._match(TokenType.FSTRING):

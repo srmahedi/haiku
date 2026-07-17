@@ -318,7 +318,7 @@ class Interpreter:
             if isinstance(v, bool):
                 return h_bool(v)
             if isinstance(v, (int, float)):
-                return h_number(float(v))
+                return h_number(float(v), expr.literal_type)
             return h_string(str(v))
 
         if isinstance(expr, Identifier):
@@ -878,8 +878,7 @@ class Interpreter:
     # ------------------------------------------------------------------
 
     def _values_equal(self, a: HValue, b: HValue) -> bool:
-        if a.type != b.type:
-            return False
+        # Allow int/float cross-comparison (e.g. 5 == 5.0)
         if isinstance(a, HNumber) and isinstance(b, HNumber):
             return a.value == b.value
         if isinstance(a, HString) and isinstance(b, HString):
