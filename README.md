@@ -4,7 +4,7 @@
 
 ## What's New in Haiku 3.0 (Production-Ready)
 
-### 🚀 Major New Features
+### Major New Features
 
 **Essential Systems:**
 - **Real File I/O**: Read/write actual files from disk (`File` module)
