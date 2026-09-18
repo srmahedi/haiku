@@ -2,7 +2,7 @@
 
 **Haiku** is a modern, expressive programming language designed to be **simpler than Python** while remaining powerful enough for real-world tasks. Haiku features clean syntax, f-strings for easy string interpolation, module imports, first-class functions, object-oriented programming, pattern matching, and a rich standard library.
 
-## What's New in Haiku 3.0 (Production-Ready)
+## What's New in Haiku 1.0 (Production-Ready)
 
 ### Major New Features
 
