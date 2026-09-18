@@ -25,7 +25,6 @@ class HValue:
 
 class HNumber(HValue):
     def __init__(self, value: float, literal_type: Optional[str] = None):
-        # Use "int" for whole numbers, "float" for decimals
         # literal_type can be used to override the automatic detection
         if literal_type:
             type_name = literal_type
@@ -36,7 +35,7 @@ class HNumber(HValue):
         self.value = value
 
     def __str__(self) -> str:
-        if self.value == int(self.value):
+        if self.type == "int":
             return str(int(self.value))
         return str(self.value)
 
