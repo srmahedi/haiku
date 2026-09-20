@@ -1,0 +1,44 @@
+// Test advanced event handling
+import GUI
+
+println("Testing advanced event handling...")
+
+// Initialize GUI
+GUI.init()
+
+// Create window
+let window = GUI.createWindow("Event Handling Test", 400, 300)
+
+// Add widgets
+GUI.addLabel(window, "Event Handling Test")
+
+// Test text input with callback
+GUI.addTextInput(window, "Type here...")
+
+fn onTextChanged(text) {
+    println(f"Text changed: {text}")
+}
+
+GUI.setWidgetCallback(window, 1, "changed", onTextChanged)
+
+// Test button with callback
+fn onButtonClick() {
+    println("Button clicked!")
+}
+
+GUI.addButton(window, "Click Me", onButtonClick)
+
+// Test slider with callback
+fn onSliderChanged(value) {
+    println(f"Slider value: {value}")
+}
+
+GUI.addSliderAdvancedWithCallback(window, "horizontal", 0, 100, 50, onSliderChanged)
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Event handling test completed")

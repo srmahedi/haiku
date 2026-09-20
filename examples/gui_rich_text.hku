@@ -1,0 +1,28 @@
+// Rich Text Editor Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("Rich Text Editor", 600, 400)
+
+// Add a rich text editor with HTML content
+let html_content = "<h1>Hello Rich Text!</h1><p>This is <b>bold</b> text.</p>"
+
+GUI.addLabel(window, "Rich Text Editor:")
+GUI.addRichTextEdit(window, html_content)
+
+// Function to update rich text
+fn updateRichText() {
+    let new_html = "<h2>Updated Content</h2><p>This is <i>italic</i> text.</p>"
+    GUI.setRichText(window, 1, new_html)
+}
+
+GUI.addButton(window, "Update Rich Text", updateRichText)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

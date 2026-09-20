@@ -1,0 +1,38 @@
+// Test advanced GUI features
+import GUI
+
+// Initialize GUI
+GUI.init()
+
+// Create window
+let window = GUI.createWindow("Advanced GUI Test", 800, 600)
+
+// Test advanced widgets
+GUI.addLabel(window, "Advanced GUI Features Test")
+
+// Test splitter
+GUI.addSplitter(window, "horizontal")
+
+// Test radio buttons
+GUI.addRadioButton(window, "Option 1", true)
+GUI.addRadioButton(window, "Option 2", false)
+
+// Test list widget
+let items = ["Item 1", "Item 2", "Item 3"]
+GUI.addListWidget(window, items)
+
+// Test checkbox
+GUI.addCheckbox(window, "Check me", false)
+
+// Test tooltip
+GUI.setTooltip(window, 1, "This is a tooltip")
+
+// Test window management
+GUI.setWindowPosition(window, 100, 100)
+GUI.setWindowOpacity(window, 0.9)
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()

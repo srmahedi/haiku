@@ -14,6 +14,7 @@
 - **Database**: SQLite database connectivity (`DB` module)
 - **Testing Framework**: Built-in testing tools (`Test` module)
 - **Package Manager**: Install and manage packages (`Pkg` module)
+- **GUI Module**: Create graphical user interfaces with Qt/PySide6 (`GUI` module)
 
 **New Data Structures:**
 - **Sets**: `#{1, 2, 3}` - unordered unique collections
@@ -909,6 +910,216 @@ println(f"Children: {parsed['children']}")
 let xmlBack = XML.toString(parsed)
 println(f"XML: {xmlBack}")
 ```
+
+### GUI Module (Graphical User Interface)
+
+Haiku provides a comprehensive GUI module built on PySide6/Qt, covering ~90-95% of common GUI use cases while maintaining a simplified API.
+
+```haiku
+// Create GUI applications using PySide6/Qt
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("My App", 400, 300)
+
+// Add widgets
+GUI.addLabel(window, "Hello, GUI!")
+GUI.addTextInput(window, "Enter text...")
+
+// Add button with callback
+fn onButtonClick() {
+    GUI.messageBox("Info", "Button clicked!", "info")
+}
+GUI.addButton(window, "Click Me", onButtonClick)
+
+// Show and run
+GUI.showWindow(window)
+GUI.run()
+```
+
+#### Core GUI Functions
+- `GUI.init()` - Initialize the Qt application
+- `GUI.createWindow(title, width, height)` - Create a new window
+- `GUI.createWindowWithGrid(title, width, height, rows, cols)` - Create window with grid layout
+- `GUI.showWindow(window_id)` - Show a window
+- `GUI.closeWindow(window_id)` - Close a window
+- `GUI.run()` - Start the GUI event loop
+
+#### Basic Widgets
+- `GUI.addLabel(window_id, text)` - Add a label
+- `GUI.addButton(window_id, text, callback)` - Add a button with callback
+- `GUI.addTextInput(window_id, placeholder)` - Add a text input field
+- `GUI.addTextArea(window_id, text)` - Add a multi-line text area
+- `GUI.addCheckbox(window_id, text, checked)` - Add a checkbox
+- `GUI.addCombobox(window_id, items)` - Add a dropdown combobox
+- `GUI.addSlider(window_id, min, max, initial)` - Add a slider
+- `GUI.addProgressBar(window_id, value)` - Add a progress bar
+- `GUI.addRadioButton(window_id, text, checked)` - Add a radio button
+- `GUI.addListWidget(window_id, items)` - Add a list widget
+
+#### Advanced Widgets
+- `GUI.addTreeWidget(window_id)` - Add tree widget
+- `GUI.addTableWidget(window_id, rows, cols)` - Add table widget
+- `GUI.addTabWidget(window_id)` - Add tab widget
+- `GUI.addTabToTabWidget(window_id, tab_index, title)` - Add tab to tab widget
+- `GUI.addScrollArea(window_id, content)` - Add scroll area
+- `GUI.addGroupBox(window_id, title)` - Add group box
+- `GUI.addFrame(window_id, shape)` - Add frame widget
+- `GUI.addSplitter(window_id, orientation)` - Add splitter widget
+- `GUI.addDockWidget(window_id, title)` - Add dock widget
+- `GUI.addStackedWidget(window_id)` - Add stacked widget
+- `GUI.addSpinBox(window_id, min, max, initial)` - Add spin box
+- `GUI.addDoubleSpinBox(window_id, min, max, initial)` - Add double spin box
+- `GUI.addDateEdit(window_id)` - Add date edit widget
+- `GUI.addTimeEdit(window_id)` - Add time edit widget
+- `GUI.addLCDNumber(window_id, value)` - Add LCD number display
+- `GUI.addDial(window_id, min, max, initial)` - Add dial widget
+- `GUI.addCalendarWidget(window_id)` - Add calendar widget
+- `GUI.addToolButton(window_id, text, callback)` - Add tool button
+- `GUI.addCommandLinkButton(window_id, text, description, callback)` - Add command link button
+- `GUI.addImageLabel(window_id, image_path)` - Add image label
+- `GUI.addScrollBar(window_id, orientation)` - Add scroll bar
+
+#### Widget Operations
+- `GUI.getInput(window_id, widget_index)` - Get text from a widget
+- `GUI.setText(window_id, widget_index, text)` - Set text for a widget
+- `GUI.setWidgetEnabled(window_id, widget_index, enabled)` - Enable/disable widget
+- `GUI.setWidgetVisible(window_id, widget_index, visible)` - Show/hide widget
+- `GUI.removeWidget(window_id, widget_index)` - Remove widget from layout
+- `GUI.setWidgetSize(window_id, widget_index, width, height)` - Set widget size
+- `GUI.setWidgetFont(window_id, widget_index, family, size, bold)` - Set widget font
+- `GUI.setWidgetColor(window_id, widget_index, part, color)` - Set widget color
+- `GUI.setWidgetStyle(window_id, widget_index, css)` - Set widget CSS style
+- `GUI.setTooltip(window_id, widget_index, text)` - Set widget tooltip
+- `GUI.setTextAlignment(window_id, widget_index, alignment)` - Set text alignment
+
+#### Window Management
+- `GUI.setWindowTitle(window_id, title)` - Set window title
+- `GUI.setWindowSize(window_id, width, height)` - Set window size
+- `GUI.setWindowPosition(window_id, x, y)` - Set window position
+- `GUI.setWindowOpacity(window_id, opacity)` - Set window opacity (0.0-1.0)
+- `GUI.maximizeWindow(window_id)` - Maximize window
+- `GUI.minimizeWindow(window_id)` - Minimize window
+- `GUI.fullscreenWindow(window_id)` - Toggle fullscreen
+- `GUI.hideWindow(window_id)` - Hide window
+- `GUI.showNormalWindow(window_id)` - Show in normal state
+- `GUI.setWindowIcon(window_id, icon_path)` - Set window icon
+
+#### Layouts
+- `GUI.createHorizontalLayout(id)` - Create horizontal layout
+- `GUI.createVerticalLayout(id)` - Create vertical layout
+- `GUI.createGridLayout(id, rows, cols)` - Create grid layout
+- `GUI.createFormLayout(id)` - Create form layout
+- `GUI.setWindowLayout(window_id, layout_id)` - Set layout for window
+- `GUI.setLayoutSpacing(window_id, spacing)` - Set layout spacing
+- `GUI.setLayoutMargins(window_id, left, top, right, bottom)` - Set layout margins
+- `GUI.addStretch(window_id, stretch)` - Add stretchable space
+- `GUI.addSpacing(window_id, size)` - Add fixed spacing
+- `GUI.addToGrid(window_id, widget_type, text, callback, row_span, col_span)` - Add widget to grid
+
+#### Dialogs
+- `GUI.messageBox(title, message, type)` - Show message dialog
+- `GUI.fileDialog(type, title, filter)` - Show file dialog (open/save/directory)
+- `GUI.colorDialog()` - Show color picker dialog
+- `GUI.fontDialog()` - Show font picker dialog
+- `GUI.inputDialog(title, label, default)` - Show input dialog
+- `GUI.showProgressDialog(title, text, maximum)` - Show progress dialog
+- `GUI.updateProgressDialog(dialog_id, value)` - Update progress dialog
+- `GUI.closeProgressDialog(dialog_id)` - Close progress dialog
+
+#### Menu and Toolbar
+- `GUI.addMenuBar(window_id)` - Add menu bar to window
+- `GUI.addMenu(menu_bar_id, name)` - Add menu to menu bar
+- `GUI.addMenuItem(menu_id, name, callback)` - Add menu item
+- `GUI.addMenuSeparator(menu_id)` - Add menu separator
+- `GUI.addToolBar(window_id, name)` - Add toolbar to window
+- `GUI.addToolBarAction(toolbar_id, name, callback)` - Add toolbar action
+- `GUI.addStatusBar(window_id)` - Add status bar to window
+- `GUI.setStatusBarText(status_bar_id, text)` - Set status bar text
+
+#### Timers
+- `GUI.createTimer(interval, callback)` - Create timer
+- `GUI.startTimer(timer_id)` - Start timer
+- `GUI.stopTimer(timer_id)` - Stop timer
+
+#### Stylesheets and Themes
+- `GUI.setStylesheet(window_id, css)` - Apply CSS-like stylesheet
+- `GUI.setStyle(style)` - Set application style (e.g., "Fusion")
+- `GUI.setTheme(window_id, theme_name)` - Set application theme
+
+#### MDI (Multiple Document Interface)
+- `GUI.setMDIMode(window_id)` - Enable MDI mode
+- `GUI.addMDISubwindow(window_id, title)` - Add MDI subwindow
+
+#### Rich Text Editing
+- `GUI.addRichTextEdit(window_id, html_content)` - Add rich text editor
+- `GUI.setRichText(window_id, widget_index, html)` - Set HTML content
+
+#### Graphics and Painting
+- `GUI.addGraphicsView(window_id)` - Add graphics view for custom painting
+- `GUI.drawRectangle(graphics_id, x, y, width, height, color)` - Draw rectangle
+- `GUI.drawEllipse(graphics_id, x, y, width, height, color)` - Draw ellipse
+- `GUI.drawLine(graphics_id, x1, y1, x2, y2, color, width)` - Draw line
+- `GUI.drawText(graphics_id, text, x, y, color)` - Draw text
+- `GUI.animateColor(graphics_id, widget_index, duration, from_color, to_color)` - Animate color
+- `GUI.animateRotation(graphics_id, widget_index, duration, from_angle, to_angle)` - Animate rotation
+- `GUI.animateScale(graphics_id, widget_index, duration, from_scale, to_scale)` - Animate scale
+- `GUI.animatePixmapSequence(graphics_id, widget_index, duration, images)` - Animate pixmap sequence
+
+#### Web Integration
+- `GUI.addWebView(window_id, url)` - Add web browser widget (requires PySide6-WebEngine)
+
+#### Data Visualization
+- `GUI.addPlotWidget(window_id)` - Add matplotlib plot widget (requires matplotlib)
+
+#### Clipboard and System Tray
+- `GUI.copyToClipboard(text)` - Copy text to clipboard
+- `GUI.pasteFromClipboard()` - Paste text from clipboard
+- `GUI.clearClipboard()` - Clear clipboard
+- `GUI.addSystemTrayIcon(icon_path)` - Add system tray icon
+- `GUI.showSystemTrayMessage(title, message)` - Show system tray notification
+- `GUI.addSystemTrayMenu(menu_id)` - Add menu to system tray
+
+#### Table and Tree Operations
+- `GUI.setTableHeader(window_id, widget_index, headers)` - Set table headers
+- `GUI.setTableItem(window_id, widget_index, row, col, text)` - Set table cell
+- `GUI.getTableItem(window_id, widget_index, row, col)` - Get table cell
+- `GUI.addTreeItem(window_id, widget_index, parent, text)` - Add tree item
+- `GUI.setTreeItemText(window_id, widget_index, item, text)` - Set tree item text
+
+#### Input Validation
+- `GUI.setInputValidator(window_id, widget_index, validator_type)` - Set input validator
+- `GUI.setInputMask(window_id, widget_index, mask)` - Set input mask
+
+#### Event Handling
+- `GUI.setWidgetCallback(window_id, widget_index, event_type, callback)` - Set widget event callback
+- Supported events: `clicked`, `changed`, `return_pressed`, `value_changed`, `current_changed`
+
+#### Drag and Drop
+- `GUI.enableDragDrop(window_id, widget_index)` - Enable drag and drop for widget
+- `GUI.setDragDropMode(window_id, widget_index, mode)` - Set drag/drop mode
+
+#### Advanced Combo Box and Spin Box
+- `GUI.addComboBoxAdvanced(window_id, items, editable)` - Add advanced combo box
+- `GUI.addSpinBoxAdvanced(window_id, type, min, max, initial, step, suffix)` - Add advanced spin box
+- `GUI.addSliderAdvancedWithCallback(window_id, orientation, min, max, initial, callback)` - Add slider with callback
+- `GUI.addProgressBarAdvanced(window_id, orientation, min, max, initial, text_visible, format)` - Add advanced progress bar
+
+#### Window States
+- `GUI.getWindowState(window_id)` - Get window state
+- `GUI.setWindowState(window_id, state)` - Set window state
+
+#### Advanced Features
+- `GUI.setStyle(style)` - Set application style (e.g., "Fusion")
+- `GUI.widgetRepaint(window_id, widget_index)` - Force widget repaint
+- `GUI.widgetUpdate(window_id, widget_index)` - Force widget update
+- `GUI.getWidgetGeometry(window_id, widget_index)` - Get widget geometry
+- `GUI.setWidgetGeometry(window_id, widget_index, x, y, width, height)` - Set widget geometry
+
+**Note:** Requires PySide6 to be installed (`pip install PySide6 matplotlib PySide6-WebEngine`)
 
 ### Assertions
 ```haiku

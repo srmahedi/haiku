@@ -1,0 +1,332 @@
+// Professional Calculator with Grid Layout in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window with grid layout (6 rows, 4 columns for calculator)
+let window = GUI.createWindowWithGrid("Haiku Calculator", 350, 500, 6, 4)
+
+// Add display at top (spans all 4 columns)
+GUI.addToGrid(window, "text_area", "0", none, 1, 4)
+
+// Style the display
+let display_style = "QTextEdit { font-size: 28px; font-weight: bold; background-color: #f0f0f0; border: 2px solid #ccc; border-radius: 5px; padding: 15px; color: #333; }"
+GUI.setWidgetStyle(window, 0, display_style)
+GUI.setTextAlignment(window, 0, "right")
+
+// Calculator state
+let current_value = "0"
+let operation = none
+let previous_value = none
+let new_input = true
+let has_decimal = false
+
+// Update display function
+fn updateDisplay() {
+    GUI.setText(window, 0, current_value)
+}
+
+// Number button functions
+fn press7() {
+    if new_input {
+        current_value = "7"
+        new_input = false
+        has_decimal = false
+    } elif current_value == "0" {
+        current_value = "7"
+    } else {
+        current_value = current_value + "7"
+    }
+    updateDisplay()
+}
+
+fn press8() {
+    if new_input {
+        current_value = "8"
+        new_input = false
+        has_decimal = false
+    } elif current_value == "0" {
+        current_value = "8"
+    } else {
+        current_value = current_value + "8"
+    }
+    updateDisplay()
+}
+
+fn press9() {
+    if new_input {
+        current_value = "9"
+        new_input = false
+        has_decimal = false
+    } elif current_value == "0" {
+        current_value = "9"
+    } else {
+        current_value = current_value + "9"
+    }
+    updateDisplay()
+}
+
+fn press4() {
+    if new_input {
+        current_value = "4"
+        new_input = false
+        has_decimal = false
+    } elif current_value == "0" {
+        current_value = "4"
+    } else {
+        current_value = current_value + "4"
+    }
+    updateDisplay()
+}
+
+fn press5() {
+    if new_input {
+        current_value = "5"
+        new_input = false
+        has_decimal = false
+    } elif current_value == "0" {
+        current_value = "5"
+    } else {
+        current_value = current_value + "5"
+    }
+    updateDisplay()
+}
+
+fn press6() {
+    if new_input {
+        current_value = "6"
+        new_input = false
+        has_decimal = false
+    } elif current_value == "0" {
+        current_value = "6"
+    } else {
+        current_value = current_value + "6"
+    }
+    updateDisplay()
+}
+
+fn press1() {
+    if new_input {
+        current_value = "1"
+        new_input = false
+        has_decimal = false
+    } elif current_value == "0" {
+        current_value = "1"
+    } else {
+        current_value = current_value + "1"
+    }
+    updateDisplay()
+}
+
+fn press2() {
+    if new_input {
+        current_value = "2"
+        new_input = false
+        has_decimal = false
+    } elif current_value == "0" {
+        current_value = "2"
+    } else {
+        current_value = current_value + "2"
+    }
+    updateDisplay()
+}
+
+fn press3() {
+    if new_input {
+        current_value = "3"
+        new_input = false
+        has_decimal = false
+    } elif current_value == "0" {
+        current_value = "3"
+    } else {
+        current_value = current_value + "3"
+    }
+    updateDisplay()
+}
+
+fn press0() {
+    if new_input {
+        current_value = "0"
+        new_input = false
+    } else {
+        if current_value != "0" {
+            current_value = current_value + "0"
+        }
+    }
+    updateDisplay()
+}
+
+// Decimal point function
+fn pressDecimal() {
+    if !has_decimal {
+        if new_input {
+            current_value = "0."
+            new_input = false
+        } else {
+            current_value = current_value + "."
+        }
+        has_decimal = true
+        updateDisplay()
+    }
+}
+
+// Clear function
+fn clear() {
+    current_value = "0"
+    operation = none
+    previous_value = none
+    new_input = true
+    has_decimal = false
+    updateDisplay()
+}
+
+// Backspace function
+fn backspace() {
+    if current_value.len() > 1 {
+        current_value = current_value.slice(0, current_value.len() - 1)
+        if current_value[current_value.len() - 1] == "." {
+            has_decimal = false
+        }
+    } else {
+        current_value = "0"
+        new_input = true
+    }
+    updateDisplay()
+}
+
+// Operation functions
+fn setOperation(op) {
+    previous_value = float(current_value)
+    operation = op
+    new_input = true
+    has_decimal = false
+}
+
+fn add() {
+    setOperation("add")
+}
+
+fn subtract() {
+    setOperation("subtract")
+}
+
+fn multiply() {
+    setOperation("multiply")
+}
+
+fn divide() {
+    setOperation("divide")
+}
+
+// Percentage function
+fn percentage() {
+    let current = float(current_value)
+    current_value = str(current / 100)
+    new_input = true
+    has_decimal = false
+    updateDisplay()
+}
+
+// Equals function
+fn equals() {
+    if operation != none && previous_value != none {
+        let current = float(current_value)
+        let result = 0
+        
+        if operation == "add" {
+            result = previous_value + current
+        } elif operation == "subtract" {
+            result = previous_value - current
+        } elif operation == "multiply" {
+            result = previous_value * current
+        } elif operation == "divide" {
+            if current != 0 {
+                result = previous_value / current
+            } else {
+                GUI.messageBox("Error", "Cannot divide by zero!", "error")
+                clear()
+                return
+            }
+        }
+        
+        // Format result to avoid excessive decimals
+        if result == int(result) {
+            current_value = str(int(result))
+        } else {
+            current_value = str(result)
+        }
+        
+        operation = none
+        previous_value = none
+        new_input = true
+        has_decimal = false
+        updateDisplay()
+    }
+}
+
+// Button styling function
+fn styleButton(index, color, text_color) {
+    let style = "QPushButton { background-color: " + color + "; color: " + text_color + "; font-size: 20px; font-weight: bold; border: 1px solid #999; border-radius: 8px; padding: 15px; min-height: 50px; }"
+    GUI.setWidgetStyle(window, index, style)
+}
+
+// Add buttons in grid layout (row 1: C, ⌫, %, /)
+GUI.addToGrid(window, "button", "C", clear, 1, 1)
+GUI.addToGrid(window, "button", "⌫", backspace, 1, 1)
+GUI.addToGrid(window, "button", "%", percentage, 1, 1)
+GUI.addToGrid(window, "button", "/", divide, 1, 1)
+
+// Row 2: 7, 8, 9, *
+GUI.addToGrid(window, "button", "7", press7, 1, 1)
+GUI.addToGrid(window, "button", "8", press8, 1, 1)
+GUI.addToGrid(window, "button", "9", press9, 1, 1)
+GUI.addToGrid(window, "button", "*", multiply, 1, 1)
+
+// Row 3: 4, 5, 6, -
+GUI.addToGrid(window, "button", "4", press4, 1, 1)
+GUI.addToGrid(window, "button", "5", press5, 1, 1)
+GUI.addToGrid(window, "button", "6", press6, 1, 1)
+GUI.addToGrid(window, "button", "-", subtract, 1, 1)
+
+// Row 4: 1, 2, 3, +
+GUI.addToGrid(window, "button", "1", press1, 1, 1)
+GUI.addToGrid(window, "button", "2", press2, 1, 1)
+GUI.addToGrid(window, "button", "3", press3, 1, 1)
+GUI.addToGrid(window, "button", "+", add, 1, 1)
+
+// Row 5: 0 (spans 2 cols), ., = (spans 1 col)
+GUI.addToGrid(window, "button", "0", press0, 1, 2)
+GUI.addToGrid(window, "button", ".", pressDecimal, 1, 1)
+GUI.addToGrid(window, "button", "=", equals, 1, 1)
+
+// Style the buttons
+styleButton(1, "#ff6b6b", "white")  // C - red
+styleButton(2, "#ff9800", "white")  // ⌫ - orange
+styleButton(3, "#e0e0e0", "#333")  // % - gray
+styleButton(4, "#ffa500", "white")  // / - orange
+
+styleButton(5, "#e0e0e0", "#333")  // 7 - gray
+styleButton(6, "#e0e0e0", "#333")  // 8 - gray
+styleButton(7, "#e0e0e0", "#333")  // 9 - gray
+styleButton(8, "#ffa500", "white")  // * - orange
+
+styleButton(9, "#e0e0e0", "#333")  // 4 - gray
+styleButton(10, "#e0e0e0", "#333") // 5 - gray
+styleButton(11, "#e0e0e0", "#333") // 6 - gray
+styleButton(12, "#ffa500", "white") // - - orange
+
+styleButton(13, "#e0e0e0", "#333") // 1 - gray
+styleButton(14, "#e0e0e0", "#333") // 2 - gray
+styleButton(15, "#e0e0e0", "#333") // 3 - gray
+styleButton(16, "#ffa500", "white") // + - orange
+
+styleButton(17, "#e0e0e0", "#333") // 0 - gray
+styleButton(18, "#e0e0e0", "#333") // . - gray
+styleButton(19, "#4CAF50", "white") // = - green
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

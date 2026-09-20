@@ -1,0 +1,117 @@
+// Comprehensive GUI Example in Haiku
+// This example demonstrates all GUI features available in Haiku
+import GUI
+
+// Initialize the GUI application
+println("Initializing GUI application...")
+GUI.init()
+
+// Set the application style
+GUI.setStyle("Fusion")
+
+// Create main window
+let main_window = GUI.createWindow("Haiku GUI Comprehensive Demo", 600, 500)
+
+// Add title
+GUI.addLabel(main_window, "Haiku GUI - All Features Demo")
+
+// Basic widgets section
+GUI.addLabel(main_window, "=== Basic Widgets ===")
+
+// Text input
+GUI.addLabel(main_window, "Name:")
+GUI.addTextInput(main_window, "Enter your name")
+
+// Text area
+GUI.addLabel(main_window, "Description:")
+GUI.addTextArea(main_window, "Enter a description...")
+
+// Interactive widgets section
+GUI.addLabel(main_window, "=== Interactive Widgets ===")
+
+// Checkboxes
+GUI.addLabel(main_window, "Preferences:")
+GUI.addCheckbox(main_window, "Enable notifications", true)
+GUI.addCheckbox(main_window, "Auto-save", false)
+
+// Combobox
+GUI.addLabel(main_window, "Theme:")
+let themes = ["Dark", "Light", "System"]
+GUI.addCombobox(main_window, themes)
+
+// Slider
+GUI.addLabel(main_window, "Volume:")
+GUI.addSlider(main_window, 0, 100, 50)
+
+// Progress bar
+GUI.addLabel(main_window, "Progress:")
+GUI.addProgressBar(main_window, 60)
+
+// Action buttons section
+GUI.addLabel(main_window, "=== Actions ===")
+
+// Button to collect form data
+fn collectFormData() {
+    let name = GUI.getInput(main_window, 2)
+    let description = GUI.getInput(main_window, 4)
+    
+    let message = f"Name: {name}\nDescription: {description}"
+    GUI.messageBox("Form Data", message, "info")
+}
+
+GUI.addButton(main_window, "Collect Form Data", collectFormData)
+
+// Button to change window title
+fn changeTitle() {
+    GUI.setWindowTitle(main_window, "Modified Title!")
+    GUI.messageBox("Info", "Window title changed!", "info")
+}
+
+GUI.addButton(main_window, "Change Title", changeTitle)
+
+// Button to resize window
+fn resizeWindow() {
+    GUI.setWindowSize(main_window, 800, 600)
+    GUI.messageBox("Info", "Window resized to 800x600", "info")
+}
+
+GUI.addButton(main_window, "Resize Window", resizeWindow)
+
+// Button to show different message types
+fn showInfo() {
+    GUI.messageBox("Information", "This is an info message", "info")
+}
+
+fn showWarning() {
+    GUI.messageBox("Warning", "This is a warning message", "warning")
+}
+
+fn showError() {
+    GUI.messageBox("Error", "This is an error message", "error")
+}
+
+fn showQuestion() {
+    GUI.messageBox("Question", "This is a question message", "question")
+}
+
+GUI.addButton(main_window, "Info Message", showInfo)
+GUI.addButton(main_window, "Warning Message", showWarning)
+GUI.addButton(main_window, "Error Message", showError)
+GUI.addButton(main_window, "Question Message", showQuestion)
+
+// Close button
+fn closeApp() {
+    GUI.closeWindow(main_window)
+}
+
+GUI.addButton(main_window, "Close Application", closeApp)
+
+// Show the main window
+println("Showing main window...")
+GUI.showWindow(main_window)
+
+// Run the application
+println("Starting GUI event loop...")
+GUI.run()
+
+println("GUI application finished")

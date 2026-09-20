@@ -1,0 +1,71 @@
+// Dialogs Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("Dialogs Demo", 400, 300)
+
+// Add label
+GUI.addLabel(window, "Click buttons to test different dialogs")
+
+// File dialog function
+fn openFileDialog() {
+    let file = GUI.fileDialog("open", "Open File", "All Files (*)")
+    if file != "" {
+        GUI.messageBox("File Selected", f"You selected: {file}", "info")
+    }
+}
+
+fn saveFileDialog() {
+    let file = GUI.fileDialog("save", "Save File", "Text Files (*.txt)")
+    if file != "" {
+        GUI.messageBox("File Saved", f"You saved to: {file}", "info")
+    }
+}
+
+fn directoryDialog() {
+    let directory = GUI.fileDialog("directory", "Select Directory")
+    if directory != "" {
+        GUI.messageBox("Directory Selected", f"You selected: {directory}", "info")
+    }
+}
+
+// Color dialog function
+fn colorDialog() {
+    let color = GUI.colorDialog()
+    if color != "" {
+        GUI.messageBox("Color Selected", f"You selected color: {color}", "info")
+    }
+}
+
+// Font dialog function
+fn fontDialog() {
+    let font = GUI.fontDialog()
+    if font != "" {
+        GUI.messageBox("Font Selected", f"You selected font: {font}", "info")
+    }
+}
+
+// Input dialog function
+fn inputDialog() {
+    let input = GUI.inputDialog("Input Dialog", "Enter your name:", "John Doe")
+    if input != "" {
+        GUI.messageBox("Input Received", f"You entered: {input}", "info")
+    }
+}
+
+// Add buttons
+GUI.addButton(window, "Open File", openFileDialog)
+GUI.addButton(window, "Save File", saveFileDialog)
+GUI.addButton(window, "Select Directory", directoryDialog)
+GUI.addButton(window, "Color Dialog", colorDialog)
+GUI.addButton(window, "Font Dialog", fontDialog)
+GUI.addButton(window, "Input Dialog", inputDialog)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

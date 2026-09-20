@@ -1,0 +1,30 @@
+// MDI (Multiple Document Interface) Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("MDI Demo", 800, 600)
+
+// Set window to MDI mode
+GUI.setMDIMode(window)
+
+// Add subwindows
+GUI.addMDISubwindow(window, "Document 1")
+GUI.addMDISubwindow(window, "Document 2")
+GUI.addMDISubwindow(window, "Document 3")
+
+// Add a button to create more subwindows
+fn createNewSubwindow() {
+    let doc_number = 4
+    GUI.addMDISubwindow(window, f"Document {doc_number}")
+}
+
+GUI.addButton(window, "New Document", createNewSubwindow)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

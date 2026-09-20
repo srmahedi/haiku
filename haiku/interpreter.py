@@ -978,9 +978,9 @@ class Interpreter:
                 module_name = stmt.alias or os.path.splitext(os.path.basename(path))[0]
                 self.environment.define(module_name, module)
         else:
-            # Import built-in module (Math, Time, JSON, File)
+            # Import built-in module (Math, Time, JSON, File, GUI, etc.)
             module_name = stmt.names[0] if stmt.names else ''
-            if module_name in ['Math', 'Time', 'JSON', 'File']:
+            if module_name in ['Math', 'Time', 'JSON', 'File', 'HTTP', 'Thread', 'Regex', 'Test', 'Pkg', 'Async', 'Date', 'Compress', 'DB', 'XML', 'GUI']:
                 # These are already in the global environment from stdlib
                 value = self.globals.get(module_name)
                 alias = stmt.alias or module_name

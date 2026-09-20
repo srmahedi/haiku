@@ -1,0 +1,29 @@
+// Stylesheet Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("Stylesheet Demo", 500, 400)
+
+// Apply a simple stylesheet
+let simple_stylesheet = "QWidget { background-color: #2b2b2b; color: white; } QPushButton { background-color: #0d47a1; color: white; }"
+
+GUI.setStylesheet(window, simple_stylesheet)
+
+// Add widgets
+GUI.addLabel(window, "This window uses a custom stylesheet")
+GUI.addTextInput(window, "Styled text input")
+
+fn showMessage() {
+    GUI.messageBox("Stylesheet", "The stylesheet is applied!", "info")
+}
+
+GUI.addButton(window, "Test Button", showMessage)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

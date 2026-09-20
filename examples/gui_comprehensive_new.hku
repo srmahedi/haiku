@@ -1,0 +1,57 @@
+// Comprehensive test of new GUI features
+import GUI
+
+println("Comprehensive GUI Features Test")
+
+// Initialize GUI
+GUI.init()
+
+// Create main window
+let window = GUI.createWindow("Comprehensive GUI Test", 800, 600)
+
+// Add basic widgets
+GUI.addLabel(window, "Comprehensive GUI Features Test")
+
+// Test new widgets
+let items = ["Red", "Green", "Blue"]
+GUI.addListWidget(window, items)
+
+GUI.addRadioButton(window, "Option A", true)
+GUI.addRadioButton(window, "Option B", false)
+
+GUI.addFrame(window, "box")
+
+GUI.addSplitter(window, "horizontal")
+
+// Test widget properties
+GUI.setTooltip(window, 0, "Main label")
+GUI.setWidgetEnabled(window, 1, true)
+GUI.setWidgetVisible(window, 2, true)
+
+// Test styling
+GUI.setWidgetFont(window, 0, "Arial", 14, true)
+GUI.setWidgetColor(window, 0, "text", "#0000ff")
+
+// Test window management
+GUI.setWindowPosition(window, 100, 100)
+GUI.setWindowOpacity(window, 0.95)
+
+// Test clipboard
+GUI.copyToClipboard("Haiku GUI Test")
+let clip = GUI.pasteFromClipboard()
+println(f"Clipboard: {clip}")
+
+// Test table
+GUI.addTableWidget(window, 2, 2)
+let headers = ["A", "B"]
+GUI.setTableHeader(window, 6, headers)
+GUI.setTableItem(window, 6, 0, 0, "X")
+GUI.setTableItem(window, 6, 0, 1, "Y")
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Comprehensive test completed")

@@ -1,0 +1,30 @@
+// Test window opacity
+import GUI
+
+println("Testing window opacity...")
+
+// Initialize GUI
+GUI.init()
+
+// Create window
+let window = GUI.createWindow("Opacity Test", 400, 300)
+
+// Add widgets
+GUI.addLabel(window, "This window should be fully opaque")
+
+fn onTestClick() {
+    println("Button clicked")
+}
+
+GUI.addButton(window, "Test", onTestClick)
+
+// Set opacity to 1.0 (fully opaque)
+GUI.setWindowOpacity(window, 1.0)
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Opacity test completed")

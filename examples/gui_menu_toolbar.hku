@@ -1,0 +1,85 @@
+// Menu and Toolbar Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("Menu and Toolbar Demo", 600, 400)
+
+// Add menu bar
+let menu_bar = GUI.addMenuBar(window)
+
+// Add menus (using the menu bar ID directly)
+let file_menu = GUI.addMenu(menu_bar, "File")
+let edit_menu = GUI.addMenu(menu_bar, "Edit")
+let help_menu = GUI.addMenu(menu_bar, "Help")
+
+// Add menu items with callbacks
+fn newFile() {
+    GUI.messageBox("New File", "Creating new file...", "info")
+}
+
+fn openFile() {
+    GUI.messageBox("Open File", "Opening file...", "info")
+}
+
+fn saveFile() {
+    GUI.messageBox("Save File", "Saving file...", "info")
+}
+
+fn exitApp() {
+    GUI.closeWindow(window)
+}
+
+fn cutText() {
+    GUI.messageBox("Cut", "Text cut to clipboard", "info")
+}
+
+fn copyText() {
+    GUI.messageBox("Copy", "Text copied to clipboard", "info")
+}
+
+fn pasteText() {
+    GUI.messageBox("Paste", "Text pasted from clipboard", "info")
+}
+
+fn showAbout() {
+    GUI.messageBox("About", "Menu and Toolbar Demo", "info")
+}
+
+// Add menu items to File menu
+GUI.addMenuItem(file_menu, "New", newFile)
+GUI.addMenuItem(file_menu, "Open", openFile)
+GUI.addMenuItem(file_menu, "Save", saveFile)
+GUI.addMenuItem(file_menu, "Exit", exitApp)
+
+// Add menu items to Edit menu
+GUI.addMenuItem(edit_menu, "Cut", cutText)
+GUI.addMenuItem(edit_menu, "Copy", copyText)
+GUI.addMenuItem(edit_menu, "Paste", pasteText)
+
+// Add menu items to Help menu
+GUI.addMenuItem(help_menu, "About", showAbout)
+
+// Add toolbar
+let toolbar = GUI.addToolBar(window, "Main Toolbar")
+
+// Add toolbar actions
+GUI.addToolBarAction(toolbar, "New", newFile)
+GUI.addToolBarAction(toolbar, "Open", openFile)
+GUI.addToolBarAction(toolbar, "Save", saveFile)
+
+// Add status bar
+let status_bar = GUI.addStatusBar(window)
+GUI.setStatusBarText(status_bar, "Ready")
+
+// Add some content
+GUI.addLabel(window, "This window has a menu bar, toolbar, and status bar")
+GUI.addTextArea(window, "Try the menu items and toolbar buttons!")
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

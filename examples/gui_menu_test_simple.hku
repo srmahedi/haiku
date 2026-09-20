@@ -1,0 +1,42 @@
+// Simple menu bar test
+import GUI
+
+println("Testing menu bar...")
+
+// Initialize GUI
+GUI.init()
+
+// Create window
+let window = GUI.createWindow("Menu Test", 400, 300)
+
+// Add menu bar
+let menu_bar = GUI.addMenuBar(window)
+
+// Add File menu
+let file_menu = GUI.addMenu(menu_bar, "File")
+
+// Add menu items with callback
+fn onNew() {
+    println("New clicked")
+    GUI.messageBox("New", "New file", "info")
+}
+
+fn onExit() {
+    println("Exit clicked")
+    GUI.closeWindow(window)
+}
+
+GUI.addMenuItem(file_menu, "New", onNew)
+GUI.addMenuSeparator(file_menu)
+GUI.addMenuItem(file_menu, "Exit", onExit)
+
+// Add some content
+GUI.addLabel(window, "Menu Bar Test - try clicking File menu")
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Menu test completed")

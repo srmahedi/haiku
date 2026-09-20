@@ -1,0 +1,36 @@
+// Multiple Windows Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create main window
+let main_window = GUI.createWindow("Main Window", 400, 300)
+GUI.addLabel(main_window, "This is the main window")
+
+// Create secondary window
+let secondary_window = GUI.createWindow("Secondary Window", 300, 200)
+GUI.addLabel(secondary_window, "This is a secondary window")
+
+// Function to show secondary window
+fn showSecondary() {
+    GUI.showWindow(secondary_window)
+}
+
+// Function to show main window
+fn showMain() {
+    GUI.showWindow(main_window)
+}
+
+// Add buttons to main window
+GUI.addButton(main_window, "Open Secondary Window", showSecondary)
+
+// Add buttons to secondary window
+GUI.addButton(secondary_window, "Back to Main", showMain)
+
+// Show both windows
+GUI.showWindow(main_window)
+GUI.showWindow(secondary_window)
+
+// Run the application
+GUI.run()

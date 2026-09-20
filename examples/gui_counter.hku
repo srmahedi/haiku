@@ -1,0 +1,36 @@
+// Counter App with GUI in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("Counter App", 300, 200)
+
+// Counter variable
+let count = 0
+
+// Create a label to show the count (index 0)
+GUI.addLabel(window, "Count: 0")
+
+// Increment function
+fn increment() {
+    count = count + 1
+    GUI.setText(window, 0, f"Count: {count}")
+}
+
+// Decrement function
+fn decrement() {
+    count = count - 1
+    GUI.setText(window, 0, f"Count: {count}")
+}
+
+// Add buttons (indices 1 and 2)
+GUI.addButton(window, "Increment", increment)
+GUI.addButton(window, "Decrement", decrement)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

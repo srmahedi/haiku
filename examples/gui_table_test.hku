@@ -1,0 +1,42 @@
+// Test advanced table widget features
+import GUI
+
+println("Testing table widget features...")
+
+// Initialize GUI
+GUI.init()
+
+// Create window
+let window = GUI.createWindow("Table Test", 500, 400)
+
+// Add table widget
+GUI.addTableWidget(window, 3, 3)
+
+// Set table headers
+let headers = ["Name", "Age", "City"]
+GUI.setTableHeader(window, 0, headers)
+
+// Set table items
+GUI.setTableItem(window, 0, 0, 0, "Alice")
+GUI.setTableItem(window, 0, 0, 1, "25")
+GUI.setTableItem(window, 0, 0, 2, "New York")
+
+GUI.setTableItem(window, 0, 1, 0, "Bob")
+GUI.setTableItem(window, 0, 1, 1, "30")
+GUI.setTableItem(window, 0, 1, 2, "London")
+
+GUI.setTableItem(window, 0, 2, 0, "Charlie")
+GUI.setTableItem(window, 0, 2, 1, "35")
+GUI.setTableItem(window, 0, 2, 2, "Paris")
+
+// Get table item
+let item = GUI.getTableItem(window, 0, 1, 1)
+println(f"Table item at (1,1): {item}")
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Table test completed")

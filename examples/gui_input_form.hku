@@ -1,0 +1,32 @@
+// Input Form App with GUI in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("Input Form", 400, 300)
+
+// Add labels and inputs
+GUI.addLabel(window, "Enter your name:")
+GUI.addTextInput(window, "Name...")
+
+GUI.addLabel(window, "Enter your message:")
+GUI.addTextInput(window, "Type a message...")
+
+// Submit function
+fn submitForm() {
+    let name = GUI.getInput(window, 1)
+    let message = GUI.getInput(window, 3)
+    
+    GUI.messageBox("Form Submitted", f"Name: {name}\nMessage: {message}", "info")
+}
+
+// Add submit button
+GUI.addButton(window, "Submit", submitForm)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

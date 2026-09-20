@@ -1,0 +1,46 @@
+// Timer Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("Timer Demo", 400, 300)
+
+// Counter variable
+let counter = 0
+
+// Add label to show counter
+GUI.addLabel(window, "Counter: 0")
+
+// Function to update counter
+fn updateCounter() {
+    counter = counter + 1
+    GUI.setText(window, 0, f"Counter: {counter}")
+    println(f"Timer tick: {counter}")
+}
+
+// Create a timer that fires every 1000ms (1 second)
+let timer = GUI.createTimer(1000, updateCounter)
+
+// Start button
+fn startTimer() {
+    GUI.startTimer(timer)
+    println("Timer started")
+}
+
+// Stop button
+fn stopTimer() {
+    GUI.stopTimer(timer)
+    println("Timer stopped")
+}
+
+// Add buttons
+GUI.addButton(window, "Start Timer", startTimer)
+GUI.addButton(window, "Stop Timer", stopTimer)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

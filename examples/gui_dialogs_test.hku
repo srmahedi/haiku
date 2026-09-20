@@ -1,0 +1,24 @@
+// Test dialog features
+import GUI
+
+println("Testing dialog features...")
+
+// Initialize GUI
+GUI.init()
+
+// Test message box
+GUI.messageBox("Test", "This is a test message", "info")
+
+// Test file dialog
+let file = GUI.fileDialog("open", "Open File", "Text Files (*.txt)")
+println(f"Selected file: {file}")
+
+// Test color dialog
+let color = GUI.colorDialog()
+println(f"Selected color: {color}")
+
+// Test input dialog
+let input = GUI.inputDialog("Input", "Enter your name:", "John")
+println(f"Input result: {input}")
+
+println("Dialog test completed")

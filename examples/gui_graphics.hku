@@ -1,0 +1,31 @@
+// Graphics and Painting Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("Graphics Demo", 600, 500)
+
+// Add a graphics view
+let graphics = GUI.addGraphicsView(window)
+
+// Draw shapes on the graphics scene
+GUI.drawRectangle(graphics, 50, 50, 100, 100, "#ff0000")
+GUI.drawEllipse(graphics, 200, 50, 80, 80, "#00ff00")
+GUI.drawRectangle(graphics, 50, 200, 120, 60, "#0000ff")
+GUI.drawLine(graphics, 200, 200, 350, 300, "#ff00ff", 3)
+GUI.drawText(graphics, "Hello Graphics!", 50, 350, "#ffffff")
+
+// Add some buttons
+fn clearAndRedraw() {
+    GUI.messageBox("Graphics", "Graphics shapes drawn!", "info")
+}
+
+GUI.addButton(window, "Redraw", clearAndRedraw)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

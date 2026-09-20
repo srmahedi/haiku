@@ -1,0 +1,59 @@
+// Advanced Widgets Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("Advanced Widgets Demo", 700, 600)
+
+// Add advanced widgets section
+GUI.addLabel(window, "=== Advanced Widgets ===")
+
+// Tree widget
+GUI.addLabel(window, "Tree Widget:")
+GUI.addTreeWidget(window)
+
+// Table widget
+GUI.addLabel(window, "Table Widget:")
+GUI.addTableWidget(window, 5, 3)
+
+// Tab widget
+GUI.addLabel(window, "Tab Widget:")
+GUI.addTabWidget(window)
+
+// Scroll area
+GUI.addLabel(window, "Scroll Area:")
+GUI.addScrollArea(window, "This is a scrollable area with long text that would require scrolling to see all the content. It demonstrates how scroll areas work in Haiku GUI applications.")
+
+// Group box
+GUI.addLabel(window, "Group Box:")
+GUI.addGroupBox(window, "Group Title")
+
+// Spin boxes
+GUI.addLabel(window, "Spin Box:")
+GUI.addSpinBox(window, 0, 100, 50)
+
+GUI.addLabel(window, "Double Spin Box:")
+GUI.addDoubleSpinBox(window, 0.0, 100.0, 50.5)
+
+// Date and time
+GUI.addLabel(window, "Date Edit:")
+GUI.addDateEdit(window)
+
+GUI.addLabel(window, "Time Edit:")
+GUI.addTimeEdit(window)
+
+// LCD number
+GUI.addLabel(window, "LCD Number:")
+GUI.addLCDNumber(window, 42)
+
+// Dial
+GUI.addLabel(window, "Dial:")
+GUI.addDial(window, 0, 100, 50)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

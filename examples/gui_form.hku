@@ -1,0 +1,50 @@
+// Form Example with GUI in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("User Form", 400, 350)
+
+// Add form fields
+GUI.addLabel(window, "Name:")
+GUI.addTextInput(window, "Enter your name")
+
+GUI.addLabel(window, "Email:")
+GUI.addTextInput(window, "Enter your email")
+
+GUI.addLabel(window, "Message:")
+GUI.addTextArea(window, "Type your message here...")
+
+// Submit function
+fn submitForm() {
+    let name = GUI.getInput(window, 1)
+    let email = GUI.getInput(window, 3)
+    let message = GUI.getInput(window, 4)
+    
+    println(f"Form submitted:")
+    println(f"Name: {name}")
+    println(f"Email: {email}")
+    println(f"Message: {message}")
+    
+    GUI.messageBox("Form Submitted", f"Thank you {name}!\nYour message has been received.", "info")
+}
+
+// Clear function
+fn clearForm() {
+    GUI.setText(window, 1, "")
+    GUI.setText(window, 3, "")
+    GUI.setText(window, 4, "")
+    println("Form cleared")
+}
+
+// Add buttons
+GUI.addButton(window, "Submit", submitForm)
+GUI.addButton(window, "Clear", clearForm)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

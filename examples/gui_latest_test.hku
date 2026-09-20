@@ -1,0 +1,44 @@
+// Test latest GUI additions
+import GUI
+
+println("Testing latest GUI additions...")
+
+// Initialize GUI
+GUI.init()
+
+// Create window
+let window = GUI.createWindow("Latest Features Test", 600, 400)
+
+// Test advanced widgets
+GUI.addLabel(window, "Latest Features Test")
+
+// Test advanced combobox
+let items = ["Apple", "Banana", "Cherry"]
+GUI.addComboBoxAdvanced(window, items, true)
+
+// Test advanced spin box
+GUI.addSpinBoxAdvanced(window, "int", 0, 100, 50, 5, " units")
+
+// Test advanced progress bar
+GUI.addProgressBarAdvanced(window, "horizontal", 0, 100, 75, true, "%p%")
+
+// Test layout spacing
+GUI.setLayoutSpacing(window, 15)
+
+// Test layout margins
+GUI.setLayoutMargins(window, 20, 20, 20, 20)
+
+// Test widget callback
+fn onComboChanged(index) {
+    println(f"Combo changed to index: {index}")
+}
+
+GUI.setWidgetCallback(window, 1, "current_changed", onComboChanged)
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Latest features test completed")

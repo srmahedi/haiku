@@ -1,0 +1,63 @@
+// Complete GUI Widgets Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Set style
+GUI.setStyle("Fusion")
+
+// Create a window
+let window = GUI.createWindow("Complete GUI Demo", 500, 600)
+
+// Add various widgets
+GUI.addLabel(window, "GUI Widgets Demo")
+
+// Text input
+GUI.addLabel(window, "Text Input:")
+GUI.addTextInput(window, "Type something...")
+
+// Text area
+GUI.addLabel(window, "Text Area:")
+GUI.addTextArea(window, "Multi-line text area")
+
+// Checkbox
+GUI.addLabel(window, "Options:")
+GUI.addCheckbox(window, "Enable feature", true)
+GUI.addCheckbox(window, "Disable feature", false)
+
+// Combobox
+GUI.addLabel(window, "Select Option:")
+let options = ["Option 1", "Option 2", "Option 3"]
+GUI.addCombobox(window, options)
+
+// Slider
+GUI.addLabel(window, "Slider:")
+GUI.addSlider(window, 0, 100, 50)
+
+// Progress bar
+GUI.addLabel(window, "Progress:")
+GUI.addProgressBar(window, 75)
+
+// Button with callback
+fn showInfo() {
+    let text_input = GUI.getInput(window, 1)
+    let text_area = GUI.getInput(window, 3)
+    
+    GUI.messageBox("Form Data", f"Text Input: {text_input}\nText Area: {text_area}", "info")
+}
+
+GUI.addButton(window, "Show Form Data", showInfo)
+
+// Another button to close
+fn closeApp() {
+    GUI.closeWindow(window)
+}
+
+GUI.addButton(window, "Close", closeApp)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

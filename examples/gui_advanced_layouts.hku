@@ -1,0 +1,41 @@
+// Advanced Layouts Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Create a window
+let window = GUI.createWindow("Advanced Layouts Demo", 600, 400)
+
+// Create different layouts
+let horizontal_layout = GUI.createHorizontalLayout("h_layout")
+let vertical_layout = GUI.createVerticalLayout("v_layout")
+let grid_layout = GUI.createGridLayout("g_layout", 3, 3)
+let form_layout = GUI.createFormLayout("f_layout")
+
+// Set window to use vertical layout (simplified)
+GUI.addLabel(window, "Advanced Layouts Demo")
+GUI.addLabel(window, "This demo shows different layout types")
+
+// Add some widgets to demonstrate
+GUI.addLabel(window, "Horizontal Layout:")
+GUI.addLabel(window, "Item 1")
+GUI.addLabel(window, "Item 2")
+
+GUI.addLabel(window, "Vertical Layout:")
+GUI.addLabel(window, "Top")
+GUI.addLabel(window, "Middle")
+GUI.addLabel(window, "Bottom")
+
+GUI.addLabel(window, "Grid Layout (3x3):")
+GUI.addLabel(window, "Grid cells would be here")
+
+GUI.addLabel(window, "Form Layout:")
+GUI.addLabel(window, "Label:")
+GUI.addTextInput(window, "Input field")
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()

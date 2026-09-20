@@ -1,0 +1,95 @@
+// Ultimate comprehensive GUI test
+import GUI
+
+println("Ultimate Comprehensive GUI Test")
+
+// Initialize GUI
+GUI.init()
+
+// Create main window
+let window = GUI.createWindow("Ultimate GUI Test", 900, 700)
+
+// Test all basic widgets
+GUI.addLabel(window, "Ultimate GUI Features Test")
+
+// Test advanced widgets
+let items = ["Red", "Green", "Blue", "Yellow"]
+GUI.addComboBoxAdvanced(window, items, true)
+
+GUI.addSpinBoxAdvanced(window, "int", 0, 100, 50, 5, " units")
+GUI.addSpinBoxAdvanced(window, "double", 0.0, 100.0, 50.0, 5.0, " %")
+
+GUI.addProgressBarAdvanced(window, "horizontal", 0, 100, 75, true, "%p%")
+
+GUI.addListWidget(window, ["Item 1", "Item 2", "Item 3"])
+
+GUI.addRadioButton(window, "Option A", true)
+GUI.addRadioButton(window, "Option B", false)
+
+GUI.addCheckbox(window, "Enable feature", true)
+
+fn onSliderChanged(value) {
+    println(f"Slider value: {value}")
+}
+
+GUI.addSliderAdvancedWithCallback(window, "horizontal", 0, 100, 50, onSliderChanged)
+
+// Test frame and splitter
+GUI.addFrame(window, "box")
+GUI.addSplitter(window, "horizontal")
+
+// Test advanced widgets
+GUI.addTreeWidget(window)
+GUI.addTableWidget(window, 2, 2)
+
+// Test text widgets
+GUI.addTextInput(window, "Enter text...")
+GUI.addTextArea(window, "Multi-line text area")
+
+// Test layout management
+GUI.setLayoutSpacing(window, 15)
+GUI.setLayoutMargins(window, 20, 20, 20, 20)
+GUI.addStretch(window, 1)
+
+// Test styling
+GUI.setWidgetFont(window, 0, "Arial", 16, true)
+GUI.setWidgetColor(window, 0, "text", "#0000ff")
+GUI.setWidgetStyle(window, 0, "QLabel { background-color: #ffffcc; padding: 5px; }")
+
+// Test tooltips
+GUI.setTooltip(window, 0, "Main title label")
+GUI.setTooltip(window, 1, "Select a color")
+
+// Test widget properties
+GUI.setWidgetEnabled(window, 2, true)
+GUI.setWidgetVisible(window, 3, true)
+
+// Test window management
+GUI.setWindowPosition(window, 150, 150)
+GUI.setWindowOpacity(window, 0.95)
+
+// Test clipboard
+GUI.copyToClipboard("Ultimate GUI Test")
+let clip = GUI.pasteFromClipboard()
+println(f"Clipboard: {clip}")
+
+// Test table operations (commented out for now)
+// let headers = ["A", "B"]
+// GUI.setTableHeader(window, 9, headers)
+// GUI.setTableItem(window, 9, 0, 0, "X")
+// GUI.setTableItem(window, 9, 0, 1, "Y")
+
+// Test event callbacks
+fn onComboChanged(index) {
+    println(f"Combo changed to: {index}")
+}
+
+GUI.setWidgetCallback(window, 1, "current_changed", onComboChanged)
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Ultimate test completed successfully")

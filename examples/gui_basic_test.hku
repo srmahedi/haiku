@@ -1,0 +1,26 @@
+// Basic GUI test
+import GUI
+
+println("Initializing GUI...")
+GUI.init()
+
+println("Creating window...")
+let window = GUI.createWindow("Basic Test", 400, 300)
+
+println("Adding widgets...")
+GUI.addLabel(window, "Hello, World!")
+
+fn onButtonClick() {
+    println("Button clicked!")
+    GUI.messageBox("Info", "Button was clicked!", "info")
+}
+
+GUI.addButton(window, "Click Me", onButtonClick)
+
+println("Showing window...")
+GUI.showWindow(window)
+
+println("Running GUI...")
+GUI.run()
+
+println("GUI finished")

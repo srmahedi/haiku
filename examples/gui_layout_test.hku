@@ -1,0 +1,44 @@
+// Test advanced layout management
+import GUI
+
+println("Testing advanced layout management...")
+
+// Initialize GUI
+GUI.init()
+
+// Create window
+let window = GUI.createWindow("Layout Test", 500, 400)
+
+// Add widgets
+GUI.addLabel(window, "Layout Management Test")
+
+fn onButton1Click() {
+    println("Button 1 clicked")
+}
+
+fn onButton2Click() {
+    println("Button 2 clicked")
+}
+
+GUI.addButton(window, "Button 1", onButton1Click)
+GUI.addButton(window, "Button 2", onButton2Click)
+
+// Test layout spacing
+GUI.setLayoutSpacing(window, 20)
+
+// Test layout margins
+GUI.setLayoutMargins(window, 30, 30, 30, 30)
+
+// Test stretch
+GUI.addStretch(window, 1)
+
+// Test spacing
+GUI.addSpacing(window, 50)
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Layout test completed")

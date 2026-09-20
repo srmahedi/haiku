@@ -1,0 +1,38 @@
+// Simple GUI Hello World in Haiku
+import GUI
+
+// Initialize the GUI application
+println("Initializing GUI...")
+let result = GUI.init()
+println(f"GUI init result: {result}")
+
+// Create a window
+println("Creating window...")
+let window = GUI.createWindow("Hello Haiku GUI!", 400, 300)
+println(f"Window created: {window}")
+
+// Add a label
+println("Adding label...")
+GUI.addLabel(window, "Welcome to Haiku GUI Programming!")
+
+// Add a button with a callback
+fn onButtonClick() {
+    println("Button clicked!")
+    GUI.messageBox("Hello!", "You clicked the button!", "info")
+}
+
+println("Adding button...")
+GUI.addButton(window, "Click Me!", onButtonClick)
+
+// Add a text input
+println("Adding text input...")
+GUI.addTextInput(window, "Enter your name...")
+
+// Show the window
+println("Showing window...")
+GUI.showWindow(window)
+
+// Run the application
+println("Running GUI application...")
+GUI.run()
+println("GUI application finished")

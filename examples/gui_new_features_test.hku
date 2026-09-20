@@ -1,0 +1,51 @@
+// Test new GUI features
+import GUI
+
+println("Testing new GUI features...")
+
+// Initialize GUI
+GUI.init()
+
+// Create window
+let window = GUI.createWindow("New Features Test", 600, 400)
+
+// Test advanced widgets
+GUI.addLabel(window, "Testing New Features")
+
+// Test list widget
+let items = ["Apple", "Banana", "Cherry"]
+GUI.addListWidget(window, items)
+
+// Test radio buttons
+GUI.addRadioButton(window, "Male", true)
+GUI.addRadioButton(window, "Female", false)
+
+// Test checkbox
+GUI.addCheckbox(window, "Accept Terms", false)
+
+// Test frame
+GUI.addFrame(window, "box")
+
+// Test splitter
+GUI.addSplitter(window, "horizontal")
+
+// Test tooltips
+GUI.setTooltip(window, 0, "This is a label")
+GUI.setTooltip(window, 1, "This is a list")
+
+// Test window properties
+GUI.setWindowPosition(window, 200, 200)
+GUI.setWindowOpacity(window, 0.95)
+
+// Test clipboard
+GUI.copyToClipboard("Test text from Haiku GUI!")
+let clipboard_text = GUI.pasteFromClipboard()
+println(f"Clipboard text: {clipboard_text}")
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Test completed")

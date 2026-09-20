@@ -1,0 +1,37 @@
+// Test advanced styling features
+import GUI
+
+println("Testing advanced styling...")
+
+// Initialize GUI
+GUI.init()
+
+// Create window
+let window = GUI.createWindow("Styling Test", 400, 300)
+
+// Add widgets
+GUI.addLabel(window, "Styled Label")
+
+fn onButtonClick() {
+    println("Styled button clicked")
+}
+
+GUI.addButton(window, "Styled Button", onButtonClick)
+
+// Test widget styling
+GUI.setWidgetStyle(window, 0, "QLabel { color: red; font-weight: bold; }")
+GUI.setWidgetStyle(window, 1, "QPushButton { background-color: #2196F3; color: white; padding: 5px; }")
+
+// Test widget font
+GUI.setWidgetFont(window, 0, "Arial", 16, true)
+
+// Test widget color
+GUI.setWidgetColor(window, 0, "background", "#ffffcc")
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Styling test completed")

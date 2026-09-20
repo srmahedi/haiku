@@ -1,0 +1,54 @@
+// Test advanced window management
+import GUI
+
+println("Testing advanced window management...")
+
+// Initialize GUI
+GUI.init()
+
+// Create window
+let window = GUI.createWindow("Advanced Window Test", 500, 400)
+
+// Add some widgets
+GUI.addLabel(window, "Window Management Test")
+
+fn onMaximize() {
+    GUI.maximizeWindow(window)
+}
+
+fn onMinimize() {
+    GUI.minimizeWindow(window)
+}
+
+fn onNormal() {
+    GUI.showNormal(window)
+}
+
+fn onFullscreen() {
+    GUI.showFullscreen(window)
+}
+
+fn onHide() {
+    GUI.hideWindow(window)
+}
+
+GUI.addButton(window, "Maximize", onMaximize)
+GUI.addButton(window, "Minimize", onMinimize)
+GUI.addButton(window, "Normal", onNormal)
+GUI.addButton(window, "Fullscreen", onFullscreen)
+GUI.addButton(window, "Hide", onHide)
+
+// Test window position
+GUI.setWindowPosition(window, 300, 200)
+
+// Get window position
+let pos = GUI.getWindowPosition(window)
+println(f"Window position: x={pos['x']}, y={pos['y']}")
+
+// Show window
+GUI.showWindow(window)
+
+// Run application
+GUI.run()
+
+println("Advanced window test completed")

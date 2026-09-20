@@ -1,0 +1,26 @@
+// GUI Theme Example in Haiku
+import GUI
+
+// Initialize the GUI application
+GUI.init()
+
+// Set the application style
+GUI.setStyle("Fusion")
+
+// Create a window
+let window = GUI.createWindow("Themed Window", 400, 300)
+
+// Add some widgets
+GUI.addLabel(window, "This window uses the Fusion theme")
+
+fn showMessage() {
+    GUI.messageBox("Theme Info", "Current theme: Fusion", "info")
+}
+
+GUI.addButton(window, "Show Theme", showMessage)
+
+// Show the window
+GUI.showWindow(window)
+
+// Run the application
+GUI.run()
